@@ -1,23 +1,17 @@
 <template>
   <q-layout>
-    <!-- Be sure to play with the Layout demo on docs -->
-
-    <!-- (Optional) The Header -->
     <q-layout-header>
       <q-toolbar>
         <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>
           STP Central
         </q-toolbar-title>
+        <img :src="auth.image" alt="" class="avatar">
       </q-toolbar>
     </q-layout-header>
 
-    <!-- (Optional) A Drawer; you can add one more with side="right" or change this one's side -->
     <q-layout-drawer side="left" v-model="leftDrawer" :content-class="'bg-primary text-white'">
-      <!-- QScrollArea is optional -->
-
       <q-list no-border link inset-delimiter>
-        <q-list-header>Essential Links</q-list-header>
         <template v-for="(link,key,index) of links">
           <q-item v-if="!link.children" :key="`${link.name}-${index}`" :to="link.to" dark link>
             <q-item-side v-if="link.icon" :icon="link.icon" />
@@ -35,7 +29,6 @@
     </q-layout-drawer>
 
     <q-page-container>
-      <!-- This is where pages get injected -->
       <router-view />
     </q-page-container>
 
@@ -44,6 +37,7 @@
 
 <script>
   import { openURL } from "quasar";
+  import { mapGetters } from "vuex";
   export default {
     // name: 'LayoutName',
     data() {
@@ -89,6 +83,9 @@
         }
       };
     },
+    computed: {
+      ...mapGetters(["auth"])
+    },
     methods: {
       openURL
     },
@@ -103,7 +100,7 @@
           to: {
             name: "subject",
             params: {
-              id: subject.subject
+              id: subject.subject.replace(" ", "_")
             }
           }
         };

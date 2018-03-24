@@ -3,7 +3,7 @@
 module.exports = function(ctx) {
   return {
     // app plugins (/src/plugins)
-    plugins: ["axios", "sync", "filters"],
+    plugins: ["boot", "axios", "sync", "filters", "auth"],
     css: ["app.styl"],
     extras: [
       ctx.theme.mat ? "roboto-font" : null,
@@ -54,7 +54,15 @@ module.exports = function(ctx) {
         "QTabs",
         "QTab",
         "QTabPane",
-        "QRouteTab"
+        "QRouteTab",
+        "QCard",
+        "QCardTitle",
+        "QCardMain",
+        "QCardMedia",
+        "QCardSeparator",
+        "QCardActions",
+        "QField",
+        "QInput"
       ],
       directives: ["Ripple"],
       // Quasar plugins

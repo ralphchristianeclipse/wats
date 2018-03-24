@@ -3,7 +3,15 @@ export default [
     path: "/",
     component: () => import("layouts/default"),
     children: [
-      { path: "", component: () => import("pages/Index"), name: "index" }
+      {
+        path: "",
+        component: () => import("pages/Index"),
+        name: "index",
+        redirect: {
+          name: "login"
+        }
+      },
+      { path: "/login", component: () => import("pages/Login"), name: "login" }
     ]
   },
   {

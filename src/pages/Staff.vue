@@ -1,14 +1,33 @@
 <template>
+
   <q-page padding>
-    <!-- content -->
+    <pre>
+      {{staff}}
+    </pre>
   </q-page>
 </template>
 
 <script>
-export default {
-  // name: 'PageName',
-}
+  import { mapGetters, mapActions } from "vuex";
+  export default {
+    name: "PageStaff",
+    computed: {
+      ...mapGetters("staff", ["staff"])
+    },
+    watch: {
+      $route: {
+        async handler(val) {
+          await this.getStaff();
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      ...mapActions("staff", ["getStaff"])
+    }
+  };
 </script>
 
 <style>
+
 </style>
