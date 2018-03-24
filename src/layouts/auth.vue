@@ -7,6 +7,7 @@
           STP Central
         </q-toolbar-title>
         <img :src="auth.image" alt="" class="avatar">
+        <q-btn round icon="exit_to_app" @click="logout"></q-btn>
       </q-toolbar>
     </q-layout-header>
 
@@ -37,7 +38,7 @@
 
 <script>
   import { openURL } from "quasar";
-  import { mapGetters } from "vuex";
+  import { mapGetters, mapActions } from "vuex";
   export default {
     // name: 'LayoutName',
     data() {
@@ -87,7 +88,8 @@
       ...mapGetters(["auth"])
     },
     methods: {
-      openURL
+      openURL,
+      ...mapActions(["logout"])
     },
     async mounted() {
       const { data: subjects } = await this.$axios({

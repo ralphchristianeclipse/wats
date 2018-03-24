@@ -57,6 +57,7 @@ const actions = {
     });
     sessionStorage.setItem("token", token);
     commit("SET_AUTH", data);
+    this.router.push({ name: "overview" });
   },
   async getAuth({ commit }) {
     const token = sessionStorage.getItem("token");
@@ -65,7 +66,11 @@ const actions = {
     commit("SET_AUTH", data);
   },
 
-  async logout() {}
+  async logout({ commit }) {
+    sessionStorage.removeItem("token");
+    commit("SET_AUTH", null);
+    this.router.push({ name: "login" });
+  }
 };
 
 const store = new Vuex.Store({
