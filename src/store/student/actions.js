@@ -1,9 +1,7 @@
-import axios from "axios";
-
 export const getStudents = async ({ commit }, payload = {}) => {
   const { grade = 4, section = "J" } = payload;
 
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/students/${grade}-${section}`
   });
@@ -11,10 +9,10 @@ export const getStudents = async ({ commit }, payload = {}) => {
   commit("SET_STUDENTS", students);
   return data;
 };
-export const getStudent = async ({ commit }, payload = {}) => {
-  const { id = -1 } = payload;
+export const getStudent = async ({ commit, rootGetters }, payload = {}) => {
+  const { id = rootGetters.student ? rootGetters.student.id : -1 } = payload;
 
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/sprofile/${id}`
   });
