@@ -1,7 +1,7 @@
 <template>
 
   <q-page padding>
-    <q-input v-model="search" type="search" />
+    <q-input v-model="search" />
     <teachers :teachers="searchedTeachers" />
   </q-page>
 </template>
