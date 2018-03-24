@@ -11,8 +11,8 @@ export const getTeachers = async ({ commit }, payload = {}) => {
   commit("SET_TEACHERS", data);
   return data;
 };
-export const getTeacher = async ({ commit }, payload = {}) => {
-  const { id = -1 } = payload;
+export const getTeacher = async ({ commit, rootGetters }, payload = {}) => {
+  const { id = rootGetters.params.id } = payload;
 
   const { data } = await axios({
     method: "get",

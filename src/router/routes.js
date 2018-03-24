@@ -62,6 +62,12 @@ export default [
         name: "teachers"
       },
       {
+        path: "/teachers/:id",
+        component: () => import("pages/Teacher"),
+        name: "teacher",
+        props: true
+      },
+      {
         path: "/classmates",
         component: () => import("pages/Classmates"),
         name: "classmates"
