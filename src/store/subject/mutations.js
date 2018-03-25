@@ -10,3 +10,7 @@ export const SET_SUBJECT_ACTIVITIES = (state, payload) => {
 export const SET_SUBJECT_HANDOUTS = (state, payload) => {
   state.handouts = payload;
 };
+
+export const SET_LOADER = (state, payload) => {
+  state.loader += payload;
+};

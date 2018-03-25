@@ -2,5 +2,6 @@ export default {
   assignments: [],
   tests: [],
   activities: [],
-  handouts: []
+  handouts: [],
+  loader: 0
 };

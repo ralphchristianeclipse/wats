@@ -1,5 +1,5 @@
 <template>
-  <q-layout>
+  <q-layout view="lHh Lpr fFr">
     <q-layout-header>
       <q-toolbar>
         <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
@@ -30,7 +30,10 @@
     </q-layout-drawer>
 
     <q-page-container>
-      <router-view />
+      <transition appear mode="out-in" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
+        <router-view :key="$route.fullPath" />
+      </transition>
+
     </q-page-container>
 
   </q-layout>

@@ -2,21 +2,29 @@
 
   <q-list multiline highlight separator>
     <q-list-header> {{ label }} </q-list-header>
-    <template v-for="(item,index) of items">
-      <q-item :key="index">
-        <q-item-main>
-          <slot name="label" :item="item">
-            <q-item-tile label> No Label </q-item-tile>
-          </slot>
+
+    <q-item v-for="(item,index) of items" :key="index" @click.native="$emit('select', item)">
+      <q-item-main>
+
+        <q-item-tile label>
+          <slot name="label" :item="item">No Label </slot>
+        </q-item-tile>
+
+        <q-item-tile sublabel>
           <slot name="sublabel-first" :item="item">
-            <q-item-tile sublabel> No Sub Label </q-item-tile>
+            No Sub Label
           </slot>
+        </q-item-tile>
+
+        <q-item-tile sublabel>
           <slot name="sublabel-last" :item="item">
-            <q-item-tile sublabel> No Sub Label </q-item-tile>
+            No Sub Label
           </slot>
-        </q-item-main>
-      </q-item>
-    </template>
+        </q-item-tile>
+
+      </q-item-main>
+    </q-item>
+
   </q-list>
 </template>
 
@@ -32,9 +40,6 @@
         type: String,
         default: "No Label"
       }
-    },
-    mounted() {
-      console.log(this.$scopedSlots);
     }
   };
 </script>
