@@ -5,9 +5,10 @@
 
         <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
         <q-toolbar-title>
-          <a href="#" class="al-logo clearfix"><span>STP</span>Central</a>
+          <a href="#" class="al-logo clearfix">
+            <span>STP</span>Central</a>
         </q-toolbar-title>
-        
+
         <img :src="auth.image" alt="" class="avatar">
         <q-btn round icon="exit_to_app" @click="logout"></q-btn>
       </q-toolbar>
@@ -42,131 +43,122 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
-import { mapGetters, mapActions } from "vuex";
-export default {
-  // name: 'LayoutName',
-  data() {
-    return {
-      leftDrawer: this.$q.platform.is.desktop,
-      links: {
-        overview: {
-          label: "Overview",
-          to: {
-            name: "overview"
+  import { openURL } from "quasar";
+  import { mapGetters, mapActions } from "vuex";
+  export default {
+    // name: 'LayoutName',
+    data() {
+      return {
+        leftDrawer: this.$q.platform.is.desktop,
+        links: {
+          overview: {
+            label: "Overview",
+            to: {
+              name: "overview"
+            },
+            icon: "dashboard"
           },
-          icon: "dashboard"
-        },
-        subjects: {
-          label: "Subjects",
-          icon: "book",
-          children: []
-        },
-        directory: {
-          label: "Directory",
-          icon: "book",
-          children: [
-            {
-              label: "Classmates",
-              to: {
-                name: "classmates"
+          subjects: {
+            label: "Subjects",
+            icon: "book",
+            children: []
+          },
+          directory: {
+            label: "Directory",
+            icon: "book",
+            children: [
+              {
+                label: "Classmates",
+                to: {
+                  name: "classmates"
+                }
+              },
+              {
+                label: "Teachers",
+                to: {
+                  name: "teachers"
+                }
+              },
+              {
+                label: "Staff",
+                to: {
+                  name: "staff"
+                }
               }
-            },
-            {
-              label: "Teachers",
-              to: {
-                name: "teachers"
-              }
-            },
-            {
-              label: "Staff",
-              to: {
-                name: "staff"
-              }
-            }
-          ]
-        }
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(["auth"])
-  },
-  methods: {
-    openURL,
-    ...mapActions(["logout"])
-  },
-  async mounted() {
-    const { data: subjects } = await this.$axios({
-      method: "get",
-      url: `http://stpcentral.net/subjects/sidemenu/4-J`
-    });
-    this.links.subjects.children = subjects.map(subject => {
-      const link = {
-        label: subject.subject.toUpperCase(),
-        to: {
-          name: "subject",
-          params: {
-            id: subject.subject.replace(" ", "_")
+            ]
           }
         }
       };
-      return link;
-    });
-  }
-};
+    },
+    computed: {
+      ...mapGetters(["auth"])
+    },
+    methods: {
+      openURL,
+      ...mapActions(["logout"])
+    },
+    async mounted() {
+      const { data: subjects } = await this.$axios({
+        method: "get",
+        url: `http://stpcentral.net/subjects/sidemenu/4-J`
+      });
+      this.links.subjects.children = subjects.map(subject => {
+        const link = {
+          label: subject.subject.toUpperCase(),
+          to: {
+            name: "subject",
+            params: {
+              id: subject.subject.replace(" ", "_")
+            }
+          }
+        };
+        return link;
+      });
+    }
+  };
 </script>
 
 <style lang="stylus" scoped>
-@import '~variables';
+  @import '~variables'
 
-.router-link-active, .q-item:focus {
-  background: $secondary;
-}
+  .router-link-active, .q-item:focus
+    background: $secondary
 
-a.al-logo {
-  color: #fff;
-  display: block;
-  font-size: 24px;
-  font-family: Roboto, sans-serif;
-  white-space: nowrap;
-  float: left;
-  line-height: 60px;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
+  a.al-logo
+    display: block
+    float: left
+    color: #fff
+    text-decoration: none
+    white-space: nowrap
+    font-size: 24px
+    font-family: Roboto, sans-serif
+    line-height: 60px
+    transition: color 0.2s ease
 
-a.al-logo span {
-  color: #209e91;
-}
+  a.al-logo span
+    color: #209e91
 
-a:hover {
-  color: #1b867b;
-}
+  a:hover
+    color: #1b867b
 
-.q-item, .q-item-label {
-  transition: color 0.2s ease;
-  font-size: 13px;
-}
+  .q-item, .q-item-label
+    font-size: 13px
+    transition: color 0.2s ease, border-right 0.2s ease-in-out
 
-.q-item-link:hover {
-  background: transparent;
-}
+  .q-item-link:hover
+    border-right: 5px solid $secondary
+    background: transparent
 
-.q-item:hover {
-  background: transparent;
-  color: #1b867b;
-}
+  .q-item:hover
+    background: transparent
+    color: #1b867b
 
-.q-icon {
-  color: #1b867b;
-}
+  .q-icon
+    color: #1b867b
 
-.sub-item {
-  padding-left: 52px;
-}
+  .sub-item
+    padding-left: 52px
 
-.sub-item::first-letter {
-  text-transform: uppercase;
-}
+  .sub-item::first-letter
+    text-transform: uppercase
 </style>

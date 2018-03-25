@@ -1,12 +1,10 @@
-import axios from "axios";
-
-export const getSubjectAssignments = async (
+export const getSubjectAssignments = async function(
   { commit, rootGetters },
   payload = {}
-) => {
+) {
   const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
   commit("SET_LOADER", 1);
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/assignments/subject/${subject.replace(" ", "_")}/${grade}-${section}`
   });
@@ -14,13 +12,13 @@ export const getSubjectAssignments = async (
   commit("SET_SUBJECT_ASSIGNMENTS", data);
   commit("SET_LOADER", -1);
 };
-export const getSubjectTests = async (
+export const getSubjectTests = async function(
   { commit, rootGetters },
   payload = {}
-) => {
+) {
   const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
   commit("SET_LOADER", 1);
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/tests/${subject.replace(" ", "_")}/${grade}-${section}`
   });
@@ -28,13 +26,13 @@ export const getSubjectTests = async (
   commit("SET_SUBJECT_TESTS", data);
   commit("SET_LOADER", -1);
 };
-export const getSubjectActivities = async (
+export const getSubjectActivities = async function(
   { commit, rootGetters },
   payload = {}
-) => {
+) {
   const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
   commit("SET_LOADER", 1);
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/activitysheets/${subject.replace(" ", "_")}/${grade}-${section}`
   });
@@ -42,10 +40,10 @@ export const getSubjectActivities = async (
   commit("SET_SUBJECT_ACTIVITIES", data);
   commit("SET_LOADER", -1);
 };
-export const getSubjectHandouts = async (
+export const getSubjectHandouts = async function(
   { commit, rootGetters },
   payload = {}
-) => {
+) {
   const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
   commit("SET_LOADER", 1);
   // const { data } = await axios({

@@ -1,6 +1,5 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import axios from "axios";
 import { encodeToken, decodeToken } from "src/utils";
 import student from "./student";
 import teacher from "./teacher";
@@ -40,7 +39,7 @@ const actions = {
   async login({ commit, dispatch }, payload = {}) {
     if (!payload) throw new Error("Fields empty");
     const { username: user, password: pass } = payload;
-    const { data: [data] } = await axios({
+    const { data: [data] } = await this.axios({
       method: "post",
       url: "/userinfo",
       data: {

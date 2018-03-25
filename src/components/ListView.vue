@@ -1,9 +1,9 @@
 <template>
+  <transition-group tag="q-list" name="list" multiline highlight separator>
 
-  <q-list multiline highlight separator>
-    <q-list-header> {{ label }} </q-list-header>
+    <!-- <q-list-header> {{ label }} </q-list-header> -->
 
-    <q-item v-for="(item,index) of items" :key="index" @click.native="$emit('select', item)">
+    <q-item v-for="(item,index) of items" :key="item.id || index" class="cursor-pointer" @click.native="$emit('select', item)">
       <q-item-main>
 
         <q-item-tile label>
@@ -25,7 +25,7 @@
       </q-item-main>
     </q-item>
 
-  </q-list>
+  </transition-group>
 </template>
 
 <script>
@@ -44,6 +44,22 @@
   };
 </script>
 
-<style>
+<style lang="stylus">
+  .list, .grid
+    &-leave-active
+      position: absolute
+      z-index: 0
+      transition: all 200ms ease-in
 
+    &-enter, &-leave-to
+      opacity: 0
+
+    &-enter
+      transform: scale(1)
+
+    &-move
+      transition: all 600ms ease-in-out 50ms
+
+    &-enter-active
+      transition: all 300ms ease-out
 </style>

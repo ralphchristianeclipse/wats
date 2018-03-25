@@ -42,7 +42,6 @@
     },
     methods: {
       onSelectTest(event) {
-        console.log(event);
         this.$router.push({ name: "test", params: { id: event.id } });
       }
     }
