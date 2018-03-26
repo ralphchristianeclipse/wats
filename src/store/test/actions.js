@@ -1,8 +1,6 @@
-import axios from "axios";
-
-export const getTest = async ({ commit, rootGetters }, payload = {}) => {
+export const getTest = async function({ commit, rootGetters }, payload = {}) {
   const { id = rootGetters.params.id } = payload;
-  const { data } = await axios({
+  const { data } = await this.axios({
     method: "get",
     url: `/test/${id}`
   });

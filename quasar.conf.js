@@ -62,14 +62,19 @@ module.exports = function(ctx) {
         "QCardSeparator",
         "QCardActions",
         "QField",
-        "QInput"
+        "QInput",
+        "QSearch",
+        "QInnerLoading",
+        "QSpinner",
+        "QChip",
+        "QActionSheet"
       ],
       directives: ["Ripple"],
       // Quasar plugins
       plugins: ["Notify"]
     },
-    // animations: 'all' --- includes all animations
-    animations: [],
+    animations: "all", //--- includes all animations
+    // animations: ["zoomIn", "zoomOut"],
     pwa: {
       cacheExt:
         "js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3",

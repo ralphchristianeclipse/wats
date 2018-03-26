@@ -1,4 +1,4 @@
-export const getStaff = async ({ commit }) => {
+export const getStaff = async function({ commit }) {
   commit("SET_STAFF", [
     {
       name: "Gino"

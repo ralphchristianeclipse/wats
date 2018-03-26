@@ -1,26 +1,30 @@
 <template>
-  <q-layout>
+  <q-layout view="lHh Lpr fFr">
     <q-layout-header>
       <q-toolbar>
-
-        <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
+        <q-btn flat round dense icon="menu" @click="drawer.left = !drawer.left" />
         <q-toolbar-title>
-          <a href="#" class="al-logo clearfix"><span>STP</span>Central</a>
+          <a href="#" class="al-logo clearfix">
+            <span>STP</span>Central</a>
         </q-toolbar-title>
-        
+        <q-btn v-if="auth.type === 'p'" round icon="people" class="q-mr-xs">
+          <q-chip floating color="red">
+            {{auth.children.length}}
+          </q-chip>
+        </q-btn>
         <img :src="auth.image" alt="" class="avatar">
         <q-btn round icon="exit_to_app" @click="logout"></q-btn>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer side="left" v-model="leftDrawer" :content-class="'bg-primary text-white'">
-      <q-list no-border link inset-delimiter>
+    <q-layout-drawer side="left" behavior="desktop" :value="true" :content-class="[drawer.left ? 'q-drawer-mini' : '','bg-primary text-white']" @click.native="drawer.left = false">
+      <q-list no-border link inset-delimiter class="non-selectable">
         <template v-for="(link,key,index) of links">
           <q-item v-if="!link.children" :key="`${link.name}-${index}`" :to="link.to" dark link>
             <q-item-side v-if="link.icon" :icon="link.icon" />
             <q-item-main :label="link.label" />
           </q-item>
-          <q-collapsible v-else :key="`${link.name}-${index}`" :content-class="'side-collapsible'" indent icon="explore" :label="link.label" opened>
+          <q-collapsible v-else :key="`${link.name}-${index}`" :content-class="'side-collapsible'" indent icon="explore" :label="link.label" :opened="!drawer.left">
             <q-item class="sub-item" v-for="(link,index) of link.children" :key="`${link.name}-${index}`" :to="link.to" dark link>
               <q-item-side v-if="link.icon" :icon="link.icon" />
               <q-item-main :label="link.label" />
@@ -35,88 +39,98 @@
         Hello, Tyler John 4-J <q-btn color="secondary" size="md" class="btn-info">Student Profile</q-btn>
       </div>
       <router-view />
+      <transition appear mode="out-in" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
+        <router-view :key="$route.fullPath" />
+      </transition>
+
     </q-page-container>
 
   </q-layout>
 </template>
 
 <script>
-import { openURL } from "quasar";
-import { mapGetters, mapActions } from "vuex";
-export default {
-  // name: 'LayoutName',
-  data() {
-    return {
-      leftDrawer: this.$q.platform.is.desktop,
-      links: {
-        overview: {
-          label: "Overview",
-          to: {
-            name: "overview"
+  import { openURL } from "quasar";
+  import { mapGetters, mapActions } from "vuex";
+  export default {
+    // name: 'LayoutName',
+    data() {
+      return {
+        drawer: {
+          left: this.$q.platform.is.desktop
+        },
+        links: {
+          overview: {
+            label: "Overview",
+            to: {
+              name: "overview"
+            },
+            icon: "dashboard"
           },
-          icon: "dashboard"
-        },
-        subjects: {
-          label: "Subjects",
-          icon: "book",
-          children: []
-        },
-        directory: {
-          label: "Directory",
-          icon: "book",
-          children: [
-            {
-              label: "Classmates",
-              to: {
-                name: "classmates"
+          subjects: {
+            label: "Subjects",
+            icon: "book",
+            children: []
+          },
+          directory: {
+            label: "Directory",
+            icon: "book",
+            children: [
+              {
+                label: "Classmates",
+                to: {
+                  name: "classmates"
+                }
+              },
+              {
+                label: "Teachers",
+                to: {
+                  name: "teachers"
+                }
+              },
+              {
+                label: "Staff",
+                to: {
+                  name: "staff"
+                }
               }
-            },
-            {
-              label: "Teachers",
-              to: {
-                name: "teachers"
-              }
-            },
-            {
-              label: "Staff",
-              to: {
-                name: "staff"
-              }
-            }
-          ]
-        }
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(["auth"])
-  },
-  methods: {
-    openURL,
-    ...mapActions(["logout"])
-  },
-  async mounted() {
-    const { data: subjects } = await this.$axios({
-      method: "get",
-      url: `http://stpcentral.net/subjects/sidemenu/4-J`
-    });
-    this.links.subjects.children = subjects.map(subject => {
-      const link = {
-        label: subject.subject.toUpperCase(),
-        to: {
-          name: "subject",
-          params: {
-            id: subject.subject.replace(" ", "_")
+            ]
           }
         }
       };
-      return link;
-    });
-  }
-};
+    },
+    computed: {
+      ...mapGetters(["auth"]),
+      isDesktop() {
+        return this.$q.platform.is.desktop;
+      }
+    },
+    methods: {
+      openURL,
+      ...mapActions(["logout"])
+    },
+    async mounted() {
+      const { data: subjects } = await this.$axios({
+        method: "get",
+        url: `http://stpcentral.net/subjects/sidemenu/4-J`
+      });
+      this.links.subjects.children = subjects.map(subject => {
+        const link = {
+          label: subject.subject.toUpperCase(),
+          to: {
+            name: "subject",
+            params: {
+              id: subject.subject.replace(" ", "_")
+            }
+          }
+        };
+        return link;
+      });
+    }
+  };
 </script>
 
 <style lang="stylus" scoped>
+<<<<<<< HEAD
 @import '~variables';
 
 .router-link-active, .q-item:focus {
@@ -187,4 +201,48 @@ img.avatar {
   width: 45px;
   height: 45px;
 }
+=======
+  @import '~variables'
+
+  .router-link-active, .q-item:focus
+    background: $secondary
+
+  a.al-logo
+    display: block
+    float: left
+    color: #fff
+    text-decoration: none
+    white-space: nowrap
+    font-size: 24px
+    font-family: Roboto, sans-serif
+    line-height: 60px
+    transition: color 0.2s ease
+
+  a.al-logo span
+    color: #209e91
+
+  a:hover
+    color: #1b867b
+
+  .q-item, .q-item-label
+    font-size: 13px
+    transition: color 0.2s ease, border-right 0.2s ease-in-out
+
+  .q-item-link:hover
+    border-right: 5px solid $secondary
+    background: transparent
+
+  .q-item:hover
+    background: transparent
+    color: #1b867b
+
+  .q-icon
+    color: #1b867b
+
+  .sub-item
+    padding-left: 52px
+
+  .sub-item::first-letter
+    text-transform: uppercase
+>>>>>>> dcbbab1ffda5ff83ed9a01115a23d74b33c88edb
 </style>

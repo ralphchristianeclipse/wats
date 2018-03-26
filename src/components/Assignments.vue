@@ -10,8 +10,9 @@
         </q-item-main>
       </q-item>
     </template>
-  </q-list>
-  <!-- <list-view :items="assignments" label="Assignments">
+  </q-list> -->
+
+  <list-view :items="assignments" label="Assignments">
     <template slot="label" slot-scope="{ item }">
       {{item.description}}
     </template>
@@ -21,7 +22,7 @@
     <template slot="sublabel-last" slot-scope="{ item }">
       {{item.pubdate}}
     </template>
-  </list-view> -->
+  </list-view>
 </template>
 
 <script>

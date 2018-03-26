@@ -7,12 +7,15 @@
     </q-toolbar>
     <div class="row gutter-sm q-pa-sm">
       <div class="col-sm-6 col-xs-12">
-        <assignments :assignments="assignments"></assignments>
+        <q-collapsible opened>
+          <assignments :assignments="assignments" class="relative-position" />
+        </q-collapsible>
       </div>
       <div class="col-sm-6 col-xs-12">
         <tests :tests="tests"></tests>
       </div>
-      <div class="col-sm-6 col-xs-12">
+      <div class="col-sm-6 col-xs-12 relative-position">
+
         <pre>{{activities}}</pre>
       </div>
       <div class="col-sm-6 col-xs-12">
@@ -33,7 +36,13 @@
       Tests
     },
     computed: {
-      ...mapGetters("subject", ["assignments", "tests", "activities", "handouts"])
+      ...mapGetters("subject", [
+        "assignments",
+        "tests",
+        "activities",
+        "handouts",
+        "loading"
+      ])
     },
     watch: {
       $route: {
