@@ -7,8 +7,9 @@
     </q-toolbar>
     <div class="row gutter-sm q-pa-sm">
       <div class="col-sm-6 col-xs-12">
-        <assignments :assignments="assignments" class="relative-position" />
-
+        <q-collapsible opened>
+          <assignments :assignments="assignments" class="relative-position" />
+        </q-collapsible>
       </div>
       <div class="col-sm-6 col-xs-12">
         <tests :tests="tests"></tests>

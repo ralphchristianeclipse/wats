@@ -2,26 +2,29 @@
   <q-layout view="lHh Lpr fFr">
     <q-layout-header>
       <q-toolbar>
-
-        <q-btn flat round dense icon="menu" @click="leftDrawer = !leftDrawer" />
+        <q-btn flat round dense icon="menu" @click="drawer.left = !drawer.left" />
         <q-toolbar-title>
           <a href="#" class="al-logo clearfix">
             <span>STP</span>Central</a>
         </q-toolbar-title>
-
+        <q-btn v-if="auth.type === 'p'" round icon="people" class="q-mr-xs">
+          <q-chip floating color="red">
+            {{auth.children.length}}
+          </q-chip>
+        </q-btn>
         <img :src="auth.image" alt="" class="avatar">
         <q-btn round icon="exit_to_app" @click="logout"></q-btn>
       </q-toolbar>
     </q-layout-header>
 
-    <q-layout-drawer side="left" v-model="leftDrawer" :content-class="'bg-primary text-white'">
-      <q-list no-border link inset-delimiter>
+    <q-layout-drawer side="left" behavior="desktop" :value="true" :content-class="[drawer.left ? 'q-drawer-mini' : '','bg-primary text-white']" @click.native="drawer.left = false">
+      <q-list no-border link inset-delimiter class="non-selectable">
         <template v-for="(link,key,index) of links">
           <q-item v-if="!link.children" :key="`${link.name}-${index}`" :to="link.to" dark link>
             <q-item-side v-if="link.icon" :icon="link.icon" />
             <q-item-main :label="link.label" />
           </q-item>
-          <q-collapsible v-else :key="`${link.name}-${index}`" :content-class="'side-collapsible'" indent icon="explore" :label="link.label" opened>
+          <q-collapsible v-else :key="`${link.name}-${index}`" :content-class="'side-collapsible'" indent icon="explore" :label="link.label" :opened="!drawer.left">
             <q-item class="sub-item" v-for="(link,index) of link.children" :key="`${link.name}-${index}`" :to="link.to" dark link>
               <q-item-side v-if="link.icon" :icon="link.icon" />
               <q-item-main :label="link.label" />
@@ -49,7 +52,9 @@
     // name: 'LayoutName',
     data() {
       return {
-        leftDrawer: this.$q.platform.is.desktop,
+        drawer: {
+          left: this.$q.platform.is.desktop
+        },
         links: {
           overview: {
             label: "Overview",
@@ -91,7 +96,10 @@
       };
     },
     computed: {
-      ...mapGetters(["auth"])
+      ...mapGetters(["auth"]),
+      isDesktop() {
+        return this.$q.platform.is.desktop;
+      }
     },
     methods: {
       openURL,

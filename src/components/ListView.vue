@@ -1,7 +1,7 @@
 <template>
   <transition-group tag="q-list" name="list" multiline highlight separator>
 
-    <!-- <q-list-header> {{ label }} </q-list-header> -->
+    <q-list-header key="header"> {{ label }} </q-list-header>
 
     <q-item v-for="(item,index) of items" :key="item.id || index" class="cursor-pointer" @click.native="$emit('select', item)">
       <q-item-main>

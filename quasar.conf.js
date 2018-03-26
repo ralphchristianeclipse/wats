@@ -65,7 +65,9 @@ module.exports = function(ctx) {
         "QInput",
         "QSearch",
         "QInnerLoading",
-        "QSpinner"
+        "QSpinner",
+        "QChip",
+        "QActionSheet"
       ],
       directives: ["Ripple"],
       // Quasar plugins
