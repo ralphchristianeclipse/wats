@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh Lpr fFr">
     <q-layout-header>
-      <q-toolbar>
+      <q-toolbar glossy>
         <q-btn glossy round dense icon="menu" @click="drawer.left = !drawer.left" />
         <q-toolbar-title>
           <a href="#" class="al-logo clearfix">

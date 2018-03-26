@@ -1,6 +1,6 @@
 <template>
   <q-list class="custom-list" multiline highlight separator>
-    <q-list-header class="custom-header default">ASSIGNMENTS
+    <q-list-header class="custom-header default glossy">ASSIGNMENTS
       <div class="pull-right dtpicker">
         <q-btn glossy size="sm" icon="date_range" color="secondary" round>
           <q-popover>

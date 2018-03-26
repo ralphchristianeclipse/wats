@@ -1,7 +1,7 @@
 <template>
   
   <q-page padding>
-      <q-tabs class="custom-tab" color="secondary">
+      <q-tabs class="custom-tab" color="secondary" glossy>
       <q-tab default slot="title" name="overview" label="Overview"  />
       <q-tab slot="title" name="attendance" label="Attendance"  />
       <q-tab-pane name="overview">
@@ -52,7 +52,7 @@
     <div class="row gutter-md">
       <div class="col-xs-6">
         <q-list class="custom-list for-calendar" multiline highlight separator>
-          <q-list-header class="custom-header primary">CALENDAR</q-list-header>
+          <q-list-header class="custom-header primary glossy">CALENDAR</q-list-header>
             <q-item >
               <q-item-main>
                 <q-item-tile label> 
