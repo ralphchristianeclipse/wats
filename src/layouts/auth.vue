@@ -28,10 +28,12 @@
           </q-collapsible>
         </template>
       </q-list>
-
     </q-layout-drawer>
 
     <q-page-container>
+      <div class="q-layout-page layout-padding student-info">
+        Hello, Tyler John 4-J <q-btn color="secondary" size="md" class="btn-info">Student Profile</q-btn>
+      </div>
       <router-view />
     </q-page-container>
 
@@ -121,6 +123,20 @@ export default {
   background: $secondary;
 }
 
+.student-info {
+  font-weight: 700;
+  color: #666;
+  margin: 0;
+  padding: 0 2em;
+  padding-top: 1em;
+  font-size: 24px;
+  opacity: 0.9;
+}
+
+.btn-info {
+  margin: 0 20px;
+}
+
 a.al-logo {
   color: #fff;
   display: block;
@@ -165,5 +181,10 @@ a:hover {
 
 .sub-item::first-letter {
   text-transform: uppercase;
+}
+
+img.avatar {
+  width: 45px;
+  height: 45px;
 }
 </style>

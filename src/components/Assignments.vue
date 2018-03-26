@@ -1,6 +1,6 @@
 <template>
-  <q-list multiline highlight separator>
-    <q-list-header>Assignments</q-list-header>
+  <q-list class="custom-list" multiline highlight separator>
+    <q-list-header class="custom-header default">ASSIGNMENTS</q-list-header>
     <template v-for="(assignment,index) of assignments">
       <q-item :key="index">
         <q-item-main>
@@ -25,19 +25,19 @@
 </template>
 
 <script>
-  import ListView from "src/components/ListView";
-  export default {
-    name: "ComponentAssignments",
-    components: {
-      ListView
-    },
-    props: {
-      assignments: {
-        type: Array,
-        default: () => []
-      }
+import ListView from "src/components/ListView";
+export default {
+  name: "ComponentAssignments",
+  components: {
+    ListView
+  },
+  props: {
+    assignments: {
+      type: Array,
+      default: () => []
     }
-  };
+  }
+};
 </script>
 
 <style>

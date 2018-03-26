@@ -1,6 +1,6 @@
 <template>
-  <q-list multiline highlight separator>
-    <q-list-header>Schedules</q-list-header>
+  <q-list class="custom-list" multiline highlight separator>
+    <q-list-header class="custom-header default">SCHEDULES</q-list-header>
     <template v-for="(schedule,index) of schedules">
       <q-item :key="index">
         <q-item-main>
@@ -14,15 +14,15 @@
 </template>
 
 <script>
-  export default {
-    name: "ComponentSchedules",
-    props: {
-      schedules: {
-        type: Array,
-        default: () => []
-      }
+export default {
+  name: "ComponentSchedules",
+  props: {
+    schedules: {
+      type: Array,
+      default: () => []
     }
-  };
+  }
+};
 </script>
 
 <style>
