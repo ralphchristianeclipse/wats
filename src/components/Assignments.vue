@@ -1,18 +1,27 @@
 <template>
   <q-list class="custom-list" multiline highlight separator>
-    <q-list-header class="custom-header default">ASSIGNMENTS</q-list-header>
+    <q-list-header class="custom-header default">ASSIGNMENTS
+      <div class="pull-right dtpicker">
+        <q-btn glossy size="sm" icon="date_range" color="secondary" round>
+          <q-popover>
+           <q-datetime-picker v-model="date" type="date" />
+          </q-popover>
+        </q-btn>
+      </div>
+    </q-list-header>
     <template v-for="(assignment,index) of assignments">
       <q-item :key="index">
         <q-item-main>
-          <q-item-tile label> {{assignment.description}} </q-item-tile>
+          <q-item-tile label class="desc"> {{assignment.description}} </q-item-tile>
+          <q-item-tile class="subject" sublabel> Subject: {{assignment.subject}} </q-item-tile>
           <q-item-tile sublabel> Teacher: {{assignment.tcher_title}} {{assignment.tchr_fname}} {{assignment.tchr_lname}} </q-item-tile>
           <q-item-tile sublabel> Publish Date: {{assignment.pubdate}} </q-item-tile>
         </q-item-main>
       </q-item>
     </template>
-  </q-list> -->
+  </q-list>
 
-  <list-view :items="assignments" label="Assignments">
+  <!-- <list-view :items="assignments" label="Assignments">
     <template slot="label" slot-scope="{ item }">
       {{item.description}}
     </template>
@@ -22,7 +31,7 @@
     <template slot="sublabel-last" slot-scope="{ item }">
       {{item.pubdate}}
     </template>
-  </list-view>
+  </list-view> -->
 </template>
 
 <script>
@@ -37,10 +46,26 @@ export default {
       type: Array,
       default: () => []
     }
+  },
+  data() {
+    return {
+      date: new Date()
+    };
   }
 };
 </script>
 
-<style>
+<style lang="stylus" scoped>
+.desc {
+  font-size: 14px;
+  cursor: pointer;
+}
 
+.subject {
+  text-transform: capitalize;
+}
+
+.dtpicker {
+  margin: 0 10px;
+}
 </style>

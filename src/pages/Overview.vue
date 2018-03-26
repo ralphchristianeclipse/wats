@@ -1,20 +1,20 @@
 <template>
-
+  
   <q-page padding>
-    <q-tabs class="custom-tab" color="secondary">
+      <q-tabs class="custom-tab" color="secondary">
       <q-tab default slot="title" name="overview" label="Overview"  />
       <q-tab slot="title" name="attendance" label="Attendance"  />
       <q-tab-pane name="overview">
         <div class="row gutter-md">
           <div class="col-sm-6 col-xs-12">
             <assignments :assignments="assignments" />
-            <q-btn color="secondary" @click="previousAssignmentsDate" class="custom-btn pull-left">
+            <q-btn glossy color="secondary" @click="previousAssignmentsDate" class="custom-btn pull-left">
               <div class="date">Yesterday </div>
               <div>
                 {{ assignmentsDatePrevious | date("MMMM DD, YYYY") }}
               </div>
             </q-btn>
-            <q-btn  color="secondary" @click="nextAssignmentsDate"  class="custom-btn pull-right"> 
+            <q-btn glossy color="secondary" @click="nextAssignmentsDate"  class="custom-btn pull-right"> 
               <div>
                 {{ assignmentsDateNext | date("dddd") }}
               </div>
@@ -25,13 +25,13 @@
           </div>
           <div class="col-sm-6 col-xs-12">
             <schedules :schedules="schedules" />
-            <q-btn  color="secondary" @click="previousAssignmentsDate" class="custom-btn pull-left">
+            <q-btn  glossy color="secondary" @click="previousAssignmentsDate" class="custom-btn pull-left">
               <div class="date">Yesterday </div>
               <div>
                 {{ assignmentsDatePrevious | date("MMMM DD, YYYY") }}
               </div>
             </q-btn>
-            <q-btn  color="secondary" @click="nextAssignmentsDate"  class="custom-btn pull-right">
+            <q-btn glossy color="secondary" @click="nextAssignmentsDate"  class="custom-btn pull-right">
               <div>
                 {{ assignmentsDateNext | date("dddd") }}
               </div>
@@ -44,13 +44,26 @@
       </q-tab-pane>
       <q-tab-pane name="attendace">
         <div class="row gutter-md">
-          <div class="col-sm-6 col-xs-12">
-
+          <div class="col-xs-12">
           </div>
         </div>
       </q-tab-pane>
     </q-tabs>
-
+    <div class="row gutter-md">
+      <div class="col-xs-6">
+        <q-list class="custom-list for-calendar" multiline highlight separator>
+          <q-list-header class="custom-header primary">CALENDAR</q-list-header>
+            <q-item >
+              <q-item-main>
+                <q-item-tile label> 
+                  <calendar/> 
+                </q-item-tile>
+              </q-item-main>
+            </q-item>
+        </q-list>
+      </div>
+    </div>
+    
   </q-page>
 </template>
 
@@ -58,12 +71,14 @@
 import { date } from "quasar";
 import { mapActions, mapGetters } from "vuex";
 import Assignments from "src/components/Assignments";
+import Calendar from "src/components/Calendar";
 import Schedules from "src/components/Schedules";
 export default {
   name: "PageOverview",
   components: {
     Assignments,
-    Schedules
+    Schedules,
+    Calendar
   },
   data() {
     return {
