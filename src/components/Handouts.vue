@@ -1,6 +1,6 @@
 <template>
-  <q-list multiline highlight separator>
-    <q-list-header>Tests</q-list-header>
+  <q-list class="custom-list" multiline highlight separator>
+    <q-list-header class="custom-header default glossy">Handouts</q-list-header>
     <template v-for="(test,index) of tests">
       <q-item :key="index">
         <q-item-main>
@@ -17,15 +17,15 @@
 </template>
 
 <script>
-  export default {
-    name: "ComponentTests",
-    props: {
-      tests: {
-        type: Array,
-        default: () => []
-      }
+export default {
+  name: "ComponentTests",
+  props: {
+    tests: {
+      type: Array,
+      default: () => []
     }
-  };
+  }
+};
 </script>
 
 <style>

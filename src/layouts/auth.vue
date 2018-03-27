@@ -11,6 +11,15 @@
           <q-chip class="custom-chip" floating color="secondary">
             {{auth.children.length}}
           </q-chip>
+          <q-popover>
+            <q-list separator link>
+              <q-item v-for="(child,index) of auth.children" :key="index" v-close-overlay @click.native="getParentChild(child.id)">
+                <q-item-main>
+                  <q-item-tile label>{{ child.firstname }} {{ child.lastname }}</q-item-tile>
+                </q-item-main>
+              </q-item>
+            </q-list>
+          </q-popover>
         </q-btn>
         <img :src="auth.image" alt="" class="avatar">
         <q-btn glossy round icon="exit_to_app" @click="logout"></q-btn>
@@ -36,8 +45,10 @@
 
     <q-page-container>
       <q-toolbar class="invert-bg student-info" inverted>
-          Hello, Tyler John 4-J 
-        <q-btn glossy color="secondary" size="md" class="btn-info">Student Profile</q-btn>
+        <span v-if="currentStudent">
+          Hello, {{currentStudent.firstname}} {{currentStudent.lastname}} {{currentStudent.grade}} {{currentStudent.section}}
+        </span>
+        <q-btn @click="goToProfile" glossy color="secondary" size="md" class="btn-info">Student Profile</q-btn>
       </q-toolbar>
         <!-- <q-page-sticky position="top-right" :offset="[18, 88]">
           <q-btn glossy color="warning" size="md" class="btn-info">55 Days Present</q-btn>
@@ -87,6 +98,13 @@ export default {
           },
           icon: "dashboard"
         },
+        profile: {
+          label: "Profile",
+          to: {
+            name: "profile"
+          },
+          icon: "face"
+        },
         subjects: {
           label: "Subjects",
           icon: "book",
@@ -120,14 +138,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["auth"]),
+    ...mapGetters(["auth", "currentStudent"]),
     isDesktop() {
       return this.$q.platform.is.desktop;
     }
   },
   methods: {
     openURL,
-    ...mapActions(["logout"])
+    ...mapActions(["logout", "getParentChild"]),
+    goToProfile() {
+      this.$router.push({ name: "studentProfile" });
+    }
   },
   async mounted() {
     const { data: subjects } = await this.$axios({

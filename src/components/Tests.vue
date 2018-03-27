@@ -1,6 +1,6 @@
 <template>
-  <!-- <q-list multiline highlight separator>
-    <q-list-header>Tests</q-list-header>
+  <q-list class="custom-list" multiline highlight separator>
+    <q-list-header class="custom-header default glossy">Tests</q-list-header>
     <template v-for="(test,index) of tests">
       <q-item :key="index" :to="{ name: 'test', params: { id: test.id } }">
         <q-item-main>
@@ -13,8 +13,8 @@
         </q-item-side>
       </q-item>
     </template>
-  </q-list> -->
-  <list-view :items="tests" label="Tests" @select="onSelectTest">
+  </q-list>
+  <!-- <list-view :items="tests" label="Tests" @select="onSelectTest">
     <template slot="label" slot-scope="{ item }">
       {{item.title}}
     </template>
@@ -24,28 +24,28 @@
     <template slot="sublabel-last" slot-scope="{ item }">
       Publish Date: {{item.date}}
     </template>
-  </list-view>
+  </list-view> -->
 </template>
 
 <script>
-  import ListView from "src/components/ListView";
-  export default {
-    name: "ComponentTests",
-    components: {
-      ListView
-    },
-    props: {
-      tests: {
-        type: Array,
-        default: () => []
-      }
-    },
-    methods: {
-      onSelectTest(event) {
-        this.$router.push({ name: "test", params: { id: event.id } });
-      }
+import ListView from "src/components/ListView";
+export default {
+  name: "ComponentTests",
+  components: {
+    ListView
+  },
+  props: {
+    tests: {
+      type: Array,
+      default: () => []
     }
-  };
+  },
+  methods: {
+    onSelectTest(event) {
+      this.$router.push({ name: "test", params: { id: event.id } });
+    }
+  }
+};
 </script>
 
 <style>

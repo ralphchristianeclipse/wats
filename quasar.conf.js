@@ -7,10 +7,10 @@ module.exports = function(ctx) {
     css: ["app.styl"],
     extras: [
       ctx.theme.mat ? "roboto-font" : null,
-      "material-icons"
+      "material-icons",
       // 'ionicons',
       // 'mdi',
-      // 'fontawesome'
+      "fontawesome"
     ],
     supportIE: true,
     vendor: {
@@ -77,7 +77,7 @@ module.exports = function(ctx) {
         "QBtn",
         "QBtnDropdown"
       ],
-      directives: ["Ripple"],
+      directives: ["Ripple", "CloseOverlay"],
       // Quasar plugins
       plugins: ["Notify"]
     },

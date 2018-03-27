@@ -16,12 +16,12 @@ Vue.use(Vuex);
 
 const state = () => ({
   auth: null,
-  student: null
+  currentStudent: null
 });
 
 const getters = {
   auth: state => state.auth,
-  student: state => state.student,
+  currentStudent: state => state.currentStudent,
   route: state => state.route,
   params: (state, getters) => getters.route.params
 };
@@ -31,7 +31,7 @@ const mutations = {
     state.auth = payload;
   },
   SET_STUDENT: (state, payload) => {
-    state.student = payload;
+    state.currentStudent = payload;
   }
 };
 
@@ -55,16 +55,31 @@ const actions = {
       data
     });
     sessionStorage.setItem("token", token);
-    commit("SET_AUTH", data);
+    await dispatch("getAuth");
+    //commit("SET_AUTH", data);
     this.router.push({ name: "overview" });
   },
-  async getAuth({ commit }) {
+  async getAuth({ commit, dispatch, getters }) {
     const token = sessionStorage.getItem("token");
     if (!token) return;
     const data = await decodeToken(token);
     commit("SET_AUTH", data);
+    if (getters.auth.type === "s") {
+      const student = await dispatch("student/getStudent", {
+        id: getters.auth.ident
+      });
+      commit("SET_STUDENT", student);
+    } else if (getters.auth.type === "p") {
+      await dispatch("getParentChild");
+    }
   },
-
+  async getParentChild({ commit, getters, dispatch }, payload) {
+    const [child] = getters.auth.children;
+    const [student] = await dispatch("student/getStudent", {
+      id: payload || child.id
+    });
+    commit("SET_STUDENT", student);
+  },
   async logout({ commit }) {
     sessionStorage.removeItem("token");
     commit("SET_AUTH", null);

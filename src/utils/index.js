@@ -1,3 +1,4 @@
+export const newArray = length => Array.from(Array(length).keys());
 export const reverseString = string =>
   string
     .split("")
