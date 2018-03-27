@@ -71,7 +71,7 @@ module.exports = function(ctx) {
         "QDatetimePicker",
         "QPopover"
       ],
-      directives: ["Ripple"],
+      directives: ["Ripple", "CloseOverlay"],
       // Quasar plugins
       plugins: ["Notify"]
     },

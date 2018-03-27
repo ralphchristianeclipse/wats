@@ -23,11 +23,11 @@ export default [
         component: () => import("pages/Overview"),
         name: "overview"
       },
-      // {
-      //   path: "/subjects",
-      //   component: () => import("pages/Subjects"),
-      //   name: "subjects"
-      // },
+      {
+        path: "/profile",
+        component: () => import("pages/Profile"),
+        name: "profile"
+      },
       {
         path: "/subjects/:id",
         component: () => import("pages/Subject"),

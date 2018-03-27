@@ -11,6 +11,15 @@
           <q-chip class="custom-chip" floating color="secondary">
             {{auth.children.length}}
           </q-chip>
+          <q-popover>
+            <q-list separator link>
+              <q-item v-for="(child,index) of auth.children" :key="index" v-close-overlay @click.native="getParentChild(child.id)">
+                <q-item-main>
+                  <q-item-tile label>{{ child.firstname }} {{ child.lastname }}</q-item-tile>
+                </q-item-main>
+              </q-item>
+            </q-list>
+          </q-popover>
         </q-btn>
         <img :src="auth.image" alt="" class="avatar">
         <q-btn glossy round icon="exit_to_app" @click="logout"></q-btn>
@@ -36,7 +45,9 @@
 
     <q-page-container>
       <div class="q-layout-page layout-padding student-info">
-        Hello, Tyler John 4-J 
+        <span v-if="currentStudent">
+          Hello, {{currentStudent.firstname}} {{currentStudent.lastname}} {{currentStudent.grade}} {{currentStudent.section}}
+        </span>
         <q-btn glossy color="secondary" size="md" class="btn-info">Student Profile</q-btn>
         <div class="pull-right">
           <q-btn glossy color="warning" size="md" class="btn-info">55 Days Present</q-btn>
@@ -53,166 +64,158 @@
 </template>
 
 <script>
-import { openURL } from "quasar";
-import { mapGetters, mapActions } from "vuex";
-export default {
-  // name: 'LayoutName',
-  data() {
-    return {
-      drawer: {
-        left: this.$q.platform.is.desktop
-      },
-      links: {
-        overview: {
-          label: "Overview",
-          to: {
-            name: "overview"
+  import { openURL } from "quasar";
+  import { mapGetters, mapActions } from "vuex";
+  export default {
+    // name: 'LayoutName',
+    data() {
+      return {
+        drawer: {
+          left: this.$q.platform.is.desktop
+        },
+        links: {
+          overview: {
+            label: "Overview",
+            to: {
+              name: "overview"
+            },
+            icon: "dashboard"
           },
-          icon: "dashboard"
-        },
-        subjects: {
-          label: "Subjects",
-          icon: "book",
-          children: []
-        },
-        directory: {
-          label: "Directory",
-          icon: "book",
-          children: [
-            {
-              label: "Classmates",
-              to: {
-                name: "classmates"
-              }
+          profile: {
+            label: "Profile",
+            to: {
+              name: "profile"
             },
-            {
-              label: "Teachers",
-              to: {
-                name: "teachers"
+            icon: "face"
+          },
+          subjects: {
+            label: "Subjects",
+            icon: "book",
+            children: []
+          },
+          directory: {
+            label: "Directory",
+            icon: "book",
+            children: [
+              {
+                label: "Classmates",
+                to: {
+                  name: "classmates"
+                }
+              },
+              {
+                label: "Teachers",
+                to: {
+                  name: "teachers"
+                }
+              },
+              {
+                label: "Staff",
+                to: {
+                  name: "staff"
+                }
               }
-            },
-            {
-              label: "Staff",
-              to: {
-                name: "staff"
-              }
-            }
-          ]
-        }
-      }
-    };
-  },
-  computed: {
-    ...mapGetters(["auth"]),
-    isDesktop() {
-      return this.$q.platform.is.desktop;
-    }
-  },
-  methods: {
-    openURL,
-    ...mapActions(["logout"])
-  },
-  async mounted() {
-    const { data: subjects } = await this.$axios({
-      method: "get",
-      url: `http://stpcentral.net/subjects/sidemenu/4-J`
-    });
-    this.links.subjects.children = subjects.map(subject => {
-      const link = {
-        label: subject.subject,
-        to: {
-          name: "subject",
-          params: {
-            id: subject.subject.replace(" ", "_")
+            ]
           }
         }
       };
-      return link;
-    });
-  }
-};
+    },
+    computed: {
+      ...mapGetters(["auth", "currentStudent"]),
+      isDesktop() {
+        return this.$q.platform.is.desktop;
+      }
+    },
+    methods: {
+      openURL,
+      ...mapActions(["logout", "getParentChild"])
+    },
+    async mounted() {
+      const { data: subjects } = await this.$axios({
+        method: "get",
+        url: `http://stpcentral.net/subjects/sidemenu/4-J`
+      });
+      this.links.subjects.children = subjects.map(subject => {
+        const link = {
+          label: subject.subject,
+          to: {
+            name: "subject",
+            params: {
+              id: subject.subject.replace(" ", "_")
+            }
+          }
+        };
+        return link;
+      });
+    }
+  };
 </script>
 
 <style lang="stylus" scoped>
-@import '~variables';
+  @import '~variables'
 
-.router-link-active, .q-item:focus {
-  background: $secondary;
-}
+  .router-link-active, .q-item:focus
+    background: $secondary
 
-.student-info {
-  font-weight: 700;
-  color: #666;
-  margin: 0;
-  padding: 0 2em;
-  padding-top: 1em;
-  padding-bottom: 0.5em;
-  font-size: 24px;
-  opacity: 0.9;
-}
+  .student-info
+    margin: 0
+    padding: 0 2em
+    padding-top: 1em
+    padding-bottom: 0.5em
+    color: #666
+    font-weight: 700
+    font-size: 24px
+    opacity: 0.9
 
-.btn-info {
-  margin: 0 2px;
-}
+  .btn-info
+    margin: 0 2px
 
-a.al-logo {
-  color: #fff;
-  display: block;
-  font-size: 24px;
-  font-family: Roboto, sans-serif;
-  white-space: nowrap;
-  float: left;
-  line-height: 60px;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
+  a.al-logo
+    display: block
+    float: left
+    color: #fff
+    text-decoration: none
+    white-space: nowrap
+    font-size: 24px
+    font-family: Roboto, sans-serif
+    line-height: 60px
+    transition: color 0.2s ease
 
-a.al-logo span {
-  color: #209e91;
-}
+  a.al-logo span
+    color: #209e91
 
-a:hover {
-  color: #1b867b;
-}
+  a:hover
+    color: #1b867b
 
-.q-item, .q-item-label {
-  transition: color 0.2s ease;
-  font-size: 13px;
-}
+  .q-item, .q-item-label
+    font-size: 13px
+    transition: color 0.2s ease
 
-.q-item, .q-item-label {
-  transition: color 0.2s ease;
-  font-size: 13px;
-}
+  .q-item, .q-item-label
+    font-size: 13px
+    transition: color 0.2s ease
 
-.q-item::first-letter, .q-item-label::first-letter {
-  color: red;
-}
+  .q-item::first-letter, .q-item-label::first-letter
+    color: red
 
-.q-item-link:hover {
-  background: transparent;
-}
+  .q-item-link:hover
+    background: transparent
 
-.q-item:hover {
-  background: transparent;
-  color: #1b867b;
-}
+  .q-item:hover
+    background: transparent
+    color: #1b867b
 
-.q-icon {
-  color: #1b867b;
-}
+  .q-icon
+    color: #1b867b
 
-.sub-item {
-  padding-left: 52px;
-}
+  .sub-item
+    padding-left: 52px
 
-.sub-item::first-letter {
-  text-transform: uppercase;
-}
+  .sub-item::first-letter
+    text-transform: uppercase
 
-img.avatar {
-  width: 45px;
-  height: 45px;
-  margin: 0 15px;
-}
+  img.avatar
+    margin: 0 15px
+    width: 45px
+    height: 45px
 </style>
