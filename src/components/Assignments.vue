@@ -4,7 +4,7 @@
       <div class="pull-right dtpicker">
         <q-btn glossy size="sm" icon="date_range" color="secondary" round>
           <q-popover>
-           <q-datetime-picker v-model="date" type="date" />
+            <q-datetime-picker v-model="date" type="date" />
           </q-popover>
         </q-btn>
       </div>
@@ -35,37 +35,34 @@
 </template>
 
 <script>
-import ListView from "src/components/ListView";
-export default {
-  name: "ComponentAssignments",
-  components: {
-    ListView
-  },
-  props: {
-    assignments: {
-      type: Array,
-      default: () => []
+  import ListView from "src/components/ListView";
+  export default {
+    name: "ComponentAssignments",
+    components: {
+      ListView
+    },
+    props: {
+      assignments: {
+        type: Array,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        date: new Date()
+      };
     }
-  },
-  data() {
-    return {
-      date: new Date()
-    };
-  }
-};
+  };
 </script>
 
 <style lang="stylus" scoped>
-.desc {
-  font-size: 14px;
-  cursor: pointer;
-}
+  .desc
+    font-size: 14px
+    cursor: pointer
 
-.subject {
-  text-transform: capitalize;
-}
+  .subject
+    text-transform: capitalize
 
-.dtpicker {
-  margin: 0 10px;
-}
+  .dtpicker
+    margin: 0 10px
 </style>

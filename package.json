@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "pug": "^2.0.3",
-    "quasar-cli": "^0.15.12",
+    "quasar-cli": "^0.15.14",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2"
   },
