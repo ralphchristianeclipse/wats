@@ -38,12 +38,23 @@
       <div class="q-layout-page layout-padding student-info">
         Hello, Tyler John 4-J 
         <q-btn glossy color="secondary" size="md" class="btn-info">Student Profile</q-btn>
-        <div class="pull-right">
+            </div>
+        <!-- <q-page-sticky position="top-right" :offset="[18, 88]">
           <q-btn glossy color="warning" size="md" class="btn-info">55 Days Present</q-btn>
           <q-btn glossy color="info" size="md" class="btn-info">5 Days Absent</q-btn>
           <q-btn glossy color="tertiary" size="md" class="btn-info">3 Days Late</q-btn>
-        </div>
-      </div>
+        </q-page-sticky> -->
+      <q-toolbar class="invert-bg" inverted>
+        <q-toolbar-title></q-toolbar-title>
+        <q-btn glossy color="warning" size="md" class="btn-info">55 Days Present</q-btn>
+        <q-btn glossy color="info" size="md" class="btn-info">5 Days Absent</q-btn>
+        <q-btn glossy color="tertiary" size="md" class="btn-info">3 Days Late</q-btn>
+      </q-toolbar>
+     <q-breadcrumbs class="invert-bg custom-bcrum" align="right">
+      <q-breadcrumbs-el label="55 Days Present"  />
+      <q-breadcrumbs-el label="5 Days Absent"  />
+      <q-breadcrumbs-el label="3 Days Late" />
+    </q-breadcrumbs>
       <transition appear mode="out-in" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut">
         <router-view :key="$route.fullPath" />
       </transition>
@@ -144,9 +155,7 @@ export default {
   font-weight: 700;
   color: #666;
   margin: 0;
-  padding: 0 2em;
-  padding-top: 1em;
-  padding-bottom: 0.5em;
+  padding: 2em;
   font-size: 24px;
   opacity: 0.9;
 }

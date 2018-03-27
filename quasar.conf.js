@@ -69,7 +69,10 @@ module.exports = function(ctx) {
         "QChip",
         "QActionSheet",
         "QDatetimePicker",
-        "QPopover"
+        "QPopover",
+        "QPageSticky",
+        "QBreadcrumbs",
+        "QBreadcrumbsEl"
       ],
       directives: ["Ripple"],
       // Quasar plugins

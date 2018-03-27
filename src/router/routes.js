@@ -76,6 +76,11 @@ export default [
         path: "/staff",
         component: () => import("pages/Staff"),
         name: "staff"
+      },
+      {
+        path: "/profile",
+        component: () => import("pages/StudentProfile"),
+        name: "studentProfile"
       }
     ]
   },
