@@ -50,7 +50,7 @@
       </q-tab-pane>
     </q-tabs>
     <div class="row gutter-md">
-      <div class="col-xs-6">
+      <div class="col-xs-12">
         <q-list class="custom-list for-calendar" multiline highlight separator>
           <q-list-header class="custom-header primary glossy">CALENDAR</q-list-header>
             <q-item >
