@@ -72,7 +72,10 @@ module.exports = function(ctx) {
         "QPopover",
         "QPageSticky",
         "QBreadcrumbs",
-        "QBreadcrumbsEl"
+        "QBreadcrumbsEl",
+        "QBtnGroup",
+        "QBtn",
+        "QBtnDropdown"
       ],
       directives: ["Ripple"],
       // Quasar plugins
