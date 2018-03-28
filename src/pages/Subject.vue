@@ -15,8 +15,8 @@
         <tests :tests="tests"></tests>
       </div>
       <div class="col-sm-6 col-xs-12 relative-position">
-
-        <pre>{{activities}}</pre>
+         <activities :activities="activities" class="relative-position" /> 
+        <!-- <pre>{{activities}}</pre> -->
       </div>
       <div class="col-sm-6 col-xs-12">
         <pre>{{handouts}}</pre>
@@ -29,11 +29,13 @@
 import { mapGetters, mapActions } from "vuex";
 import Assignments from "src/components/Assignments";
 import Tests from "src/components/Tests";
+import Activities from "src/components/Activities";
 export default {
   name: "PageSubject",
   components: {
     Assignments,
-    Tests
+    Tests,
+    Activities
   },
   computed: {
     ...mapGetters("subject", [
