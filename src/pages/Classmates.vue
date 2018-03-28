@@ -1,19 +1,22 @@
 <template>
 
   <q-page padding>
-    <q-list class="custom-list" multiline highlight separator>
-      <q-list-header class="custom-header default glossy">Classmates</q-list-header>
-      <template v-for="(student,index) of students">
-        <q-item :key="index" class="classmate-list">
-          <q-item-side avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujhwplE3HCZRYSnNwRJbeF8V9amG9IIPxx7dCVQATbevznXX2IA" />
-          <q-item-main>
-            <q-item-tile label> Name: {{student.firstname}} {{student.lastname}} </q-item-tile>
-            <q-item-tile sublabel> Grade &amp; Section : {{student.grade}} - {{student.section}} </q-item-tile>
-          </q-item-main>
-          
-        </q-item>
-      </template>
-    </q-list>
+    <div class="row gutter-md">
+      <div class="col-sm-6 col-xs-12">
+        <q-list class="custom-list" multiline highlight separator>
+          <q-list-header class="custom-header default glossy">Classmates</q-list-header>
+          <template v-for="(student,index) of students">
+            <q-item :key="index" class="classmate-list">
+              <q-item-side avatar="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSujhwplE3HCZRYSnNwRJbeF8V9amG9IIPxx7dCVQATbevznXX2IA" />
+              <q-item-main>
+                <q-item-tile label> Name: {{student.firstname}} {{student.lastname}} </q-item-tile>
+                <q-item-tile sublabel> Grade &amp; Section : {{student.grade}} - {{student.section}} </q-item-tile>
+              </q-item-main>
+            </q-item>
+          </template>
+        </q-list>
+      </div>
+    </div>
     <pre>{{students}}</pre>
   </q-page>
 </template>

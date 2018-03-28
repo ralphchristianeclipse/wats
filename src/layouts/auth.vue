@@ -221,10 +221,6 @@ a:hover {
   font-size: 13px;
 }
 
-.q-item::first-letter, .q-item-label::first-letter {
-  color: red;
-}
-
 .q-item-link:hover {
   background: transparent;
 }
