@@ -1,9 +1,7 @@
-<template>
-  <q-layout>
-    <q-page-container>
-      <router-view />
-    </q-page-container>
-  </q-layout>
+<template lang="pug">
+  q-layout
+    q-page-container
+      router-view
 </template>
 
 <script>

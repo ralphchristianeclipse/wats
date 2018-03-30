@@ -15,7 +15,7 @@ export const getTeacher = async function(
 ) {
   const { id = rootGetters.params.id } = payload;
 
-  const { data } = await this.axios({
+  const { data: [data] } = await this.axios({
     method: "get",
     url: `/tprofile/${id}`
   });

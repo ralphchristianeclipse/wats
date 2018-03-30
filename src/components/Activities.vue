@@ -2,7 +2,7 @@
   <q-list class="custom-list" multiline highlight separator>
     <q-list-header class="custom-header default glossy">Activities</q-list-header>
     <template v-for="(activity,index) of activities">
-      <q-item :key="index">
+      <q-item :key="index" :to="{ name: 'activity', params: { id: activity.id } }">
         <q-item-main>
           <q-item-tile label> {{activity.title}} </q-item-tile>
           <q-item-tile sublabel> Period: {{activity.period}} </q-item-tile>
@@ -17,15 +17,15 @@
 </template>
 
 <script>
-export default {
-  name: "ComponentActivities",
-  props: {
-    activities: {
-      type: Array,
-      default: () => []
+  export default {
+    name: "ComponentActivities",
+    props: {
+      activities: {
+        type: Array,
+        default: () => []
+      }
     }
-  }
-};
+  };
 </script>
 
 <style>

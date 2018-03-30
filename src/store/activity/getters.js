@@ -1,3 +1,1 @@
-/*
-export const someGetter = (state) => {}
- */
+export const activity = state => state.activity;

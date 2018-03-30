@@ -28,24 +28,19 @@
 </template>
 
 <script>
-import ListView from "src/components/ListView";
-export default {
-  name: "ComponentTests",
-  components: {
-    ListView
-  },
-  props: {
-    tests: {
-      type: Array,
-      default: () => []
+  import ListView from "src/components/ListView";
+  export default {
+    name: "ComponentTests",
+    components: {
+      ListView
+    },
+    props: {
+      tests: {
+        type: Array,
+        default: () => []
+      }
     }
-  },
-  methods: {
-    onSelectTest(event) {
-      this.$router.push({ name: "test", params: { id: event.id } });
-    }
-  }
-};
+  };
 </script>
 
 <style>

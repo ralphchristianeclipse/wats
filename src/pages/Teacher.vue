@@ -16,7 +16,8 @@
       $route: {
         async handler(val) {
           await this.getTeacher();
-        }
+        },
+        immediate: true
       }
     },
     methods: {

@@ -11,7 +11,11 @@ export default [
           name: "login"
         }
       },
-      { path: "/login", component: () => import("pages/Login"), name: "login" }
+      {
+        path: "/login",
+        component: () => import("pages/Login"),
+        name: "login"
+      }
     ]
   },
   {
@@ -78,9 +82,15 @@ export default [
         name: "staff"
       },
       {
-        path: "/profile",
-        component: () => import("pages/StudentProfile"),
-        name: "studentProfile"
+        path: "/reply-slips",
+        component: () => import("pages/ReplySlips"),
+        name: "reply-slips"
+      },
+      {
+        path: "/activities/:id",
+        component: () => import("pages/Activity"),
+        name: "activity",
+        props: true
       }
     ]
   },

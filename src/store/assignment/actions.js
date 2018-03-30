@@ -20,3 +20,33 @@ export const getAssignmentsByDate = async function(
   });
   commit("SET_ASSIGNMENTS", data);
 };
+
+export const createAssignment = async function(
+  { commit, getters },
+  payload = {}
+) {
+  const {
+    createdDate = new Date(),
+    publishDate: pubdate,
+    grade,
+    section,
+    subject,
+    description,
+    teacherId: teacher_id = rootGetters.auth.id
+  } = payload;
+  const formattedDate = dateFormatter.formatDate(createdDate, "YYYY-MM-DD");
+  const { data } = await this.axios({
+    method: "post",
+    url: `/assignments/set`,
+    data: {
+      pubdate,
+      subject,
+      grade,
+      section,
+      description,
+      teacher_id,
+      input_date: formattedDate
+    }
+  });
+  commit("SET_ASSIGNMENTS", data);
+};

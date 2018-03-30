@@ -2,7 +2,7 @@
 
   <q-page padding>
     <div class="row gutter-md">
-      <div class="col-sm-6 col-xs-12">
+      <div class="col-xs-12">
         <q-list class="custom-list" multiline highlight separator>
           <q-list-header class="custom-header default glossy">Classmates</q-list-header>
           <template v-for="(student,index) of students">
@@ -17,33 +17,32 @@
         </q-list>
       </div>
     </div>
-    <pre>{{students}}</pre>
+
   </q-page>
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
-export default {
-  name: "PageClassmates",
-  computed: {
-    ...mapGetters("student", ["students"])
-  },
-  watch: {
-    $route: {
-      async handler(val) {
-        await this.getStudents();
-      },
-      immediate: true
+  import { mapGetters, mapActions } from "vuex";
+  export default {
+    name: "PageClassmates",
+    computed: {
+      ...mapGetters("student", ["students"])
+    },
+    watch: {
+      $route: {
+        async handler(val) {
+          await this.getStudents();
+        },
+        immediate: true
+      }
+    },
+    methods: {
+      ...mapActions("student", ["getStudents"])
     }
-  },
-  methods: {
-    ...mapActions("student", ["getStudents"])
-  }
-};
+  };
 </script>
 
 <style lang="stylus" scoped>
-.classmate-list {
-  padding: 10px;
-}
+  .classmate-list
+    padding: 10px
 </style>

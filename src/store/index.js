@@ -11,19 +11,29 @@ import test from "./test";
 import schedule from "./schedule";
 import activity from "./activity";
 import staff from "./staff";
+import grade from "./grade";
 
 Vue.use(Vuex);
 
 const state = () => ({
   auth: null,
-  currentStudent: null
+  currentStudent: null,
+  currentTeacher: null,
+  windowSize: {
+    width: 0,
+    height: 0
+  },
+  windowScroll: null
 });
 
 const getters = {
   auth: state => state.auth,
   currentStudent: state => state.currentStudent,
+  currentTeacher: state => state.currentTeacher,
   route: state => state.route,
-  params: (state, getters) => getters.route.params
+  params: (state, getters) => getters.route.params,
+  windowSize: state => state.windowSize,
+  isMobile: state => state.windowSize.width <= 600
 };
 
 const mutations = {
@@ -32,6 +42,15 @@ const mutations = {
   },
   SET_STUDENT: (state, payload) => {
     state.currentStudent = payload;
+  },
+  SET_TEACHER: (state, payload) => {
+    state.currentTeacher = payload;
+  },
+  SET_WINDOW_SIZE: (state, payload) => {
+    state.windowSize = payload;
+  },
+  SET_WINDOW_SCROLL: (state, payload) => {
+    state.windowScroll = payload;
   }
 };
 
@@ -42,6 +61,9 @@ const actions = {
     const { data: [data] } = await this.axios({
       method: "post",
       url: "/userinfo",
+      // headers: {
+      //   "Content-Type": " x-www-form-urlencoded"
+      // },
       data: {
         user,
         pass
@@ -65,20 +87,32 @@ const actions = {
     const data = await decodeToken(token);
     commit("SET_AUTH", data);
     if (getters.auth.type === "s") {
-      const student = await dispatch("student/getStudent", {
-        id: getters.auth.ident
-      });
-      commit("SET_STUDENT", student);
+      await dispatch("getStudentInfo");
     } else if (getters.auth.type === "p") {
       await dispatch("getParentChild");
+    } else if (getters.auth.type === "t") {
+      await dispatch("getTeacherInfo");
     }
+  },
+  async getTeacherInfo({ commit, dispatch, getters }, payload = {}) {
+    const { id = getters.auth.ident } = payload;
+    const teacher = await dispatch("teacher/getTeacher", {
+      id
+    });
+    commit("SET_TEACHER", teacher);
+  },
+  async getStudentInfo({ commit, dispatch, getters }, payload = {}) {
+    const { id = getters.auth.ident } = payload;
+    const student = await dispatch("student/getStudent", {
+      id
+    });
+    commit("SET_STUDENT", student);
   },
   async getParentChild({ commit, getters, dispatch }, payload) {
     const [child] = getters.auth.children;
-    const [student] = await dispatch("student/getStudent", {
+    await dispatch("getStudentInfo", {
       id: payload || child.id
     });
-    commit("SET_STUDENT", student);
   },
   async logout({ commit }) {
     sessionStorage.removeItem("token");
@@ -102,7 +136,8 @@ const store = new Vuex.Store({
     test,
     activity,
     schedule,
-    staff
+    staff,
+    grade
   }
 });
 

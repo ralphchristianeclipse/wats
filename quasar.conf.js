@@ -81,8 +81,8 @@ module.exports = function(ctx) {
       // Quasar plugins
       plugins: ["Notify"]
     },
-    animations: "all", //--- includes all animations
-    // animations: ["zoomIn", "zoomOut"],
+    //animations: "all", //--- includes all animations
+    animations: ["zoomIn", "zoomOut"],
     pwa: {
       cacheExt:
         "js,html,css,ttf,eot,otf,woff,woff2,json,svg,gif,jpg,jpeg,png,wav,ogg,webm,flac,aac,mp4,mp3",

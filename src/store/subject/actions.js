@@ -2,7 +2,11 @@ export const getSubjectAssignments = async function(
   { commit, rootGetters },
   payload = {}
 ) {
-  const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
+  const {
+    subject = rootGetters.params.id,
+    grade = rootGetters.currentStudent.grade,
+    section = rootGetters.currentStudent.section
+  } = payload;
   commit("SET_LOADER", 1);
   const { data } = await this.axios({
     method: "get",
@@ -16,7 +20,11 @@ export const getSubjectTests = async function(
   { commit, rootGetters },
   payload = {}
 ) {
-  const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
+  const {
+    subject = rootGetters.params.id,
+    grade = rootGetters.currentStudent.grade,
+    section = rootGetters.currentStudent.section
+  } = payload;
   commit("SET_LOADER", 1);
   const { data } = await this.axios({
     method: "get",
@@ -30,7 +38,11 @@ export const getSubjectActivities = async function(
   { commit, rootGetters },
   payload = {}
 ) {
-  const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
+  const {
+    subject = rootGetters.params.id,
+    grade = rootGetters.currentStudent.grade,
+    section = rootGetters.currentStudent.section
+  } = payload;
   commit("SET_LOADER", 1);
   const { data } = await this.axios({
     method: "get",
@@ -44,7 +56,11 @@ export const getSubjectHandouts = async function(
   { commit, rootGetters },
   payload = {}
 ) {
-  const { subject = rootGetters.params.id, grade = 4, section = "J" } = payload;
+  const {
+    subject = rootGetters.params.id,
+    grade = rootGetters.currentStudent.grade,
+    section = rootGetters.currentStudent.section
+  } = payload;
   commit("SET_LOADER", 1);
   // const { data } = await axios({
   //   method: "get",

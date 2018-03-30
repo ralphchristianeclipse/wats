@@ -15,7 +15,7 @@ export const getStudent = async function(
 ) {
   const { id = rootGetters.student ? rootGetters.student.id : -1 } = payload;
 
-  const { data } = await this.axios({
+  const { data: [data] } = await this.axios({
     method: "get",
     url: `/sprofile/${id}`
   });

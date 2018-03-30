@@ -1,29 +1,24 @@
 <template lang="pug">
-  list-view(:items="teachers" label="Teachers" @select="onSelect")
+  list-view(:items="replySlips" label="Reply Slips")
     template(slot="label" slot-scope="{ item }").
-      {{item.title}} {{item.firstname}} {{item.lastname}}
+      {{item.title}}
     template(slot="sublabel-first" slot-scope="{ item }").
-      {{item.subj}}
+      {{item.filename}}
     template(slot="sublabel-last" slot-scope="{ item }").
-      {{item.t_email}}
+      {{item.date}}
 </template>
 
 <script>
   import ListView from "src/components/ListView";
   export default {
-    name: "ComponentTeachers",
+    name: "ComponentReplySlips",
     components: {
       ListView
     },
     props: {
-      teachers: {
+      replySlips: {
         type: Array,
         default: () => []
-      }
-    },
-    methods: {
-      onSelect(teacher) {
-        this.$router.push({ name: "teacher", params: { id: teacher.id } });
       }
     }
   };

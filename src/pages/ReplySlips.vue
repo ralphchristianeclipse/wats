@@ -1,34 +1,41 @@
 <template>
   <q-page padding>
-    <pre>{{activity}}</pre>
+    <reply-slips :reply-slips="replySlips" />
   </q-page>
 </template>
 
 <script>
   import { mapGetters, mapActions } from "vuex";
+  import ReplySlips from "src/components/ReplySlips";
   export default {
-    name: "PageActivity",
+    name: "PageReplySlips",
+    components: {
+      ReplySlips
+    },
     computed: {
-      ...mapGetters("activity", ["activity"]),
+      ...mapGetters("grade", ["replySlips"]),
       ...mapGetters(["currentStudent"])
     },
     watch: {
       $route: {
         async handler(val) {
-          await this.getActivity();
+          await this.getGradeReplySlips();
         },
         immediate: true
       },
       currentStudent: {
         async handler(val) {
-          await this.getActivity();
+          await this.getGradeReplySlips();
         },
         deep: true
       }
     },
     methods: {
-      ...mapActions("activity", ["getActivity"])
+      ...mapActions("grade", ["getGradeReplySlips"])
     }
   };
 </script>
 
+<style>
+
+</style>
