@@ -1,7 +1,6 @@
-<template>
-  <q-page padding>
-    <reply-slips :reply-slips="replySlips" />
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    reply-slips(:reply-slips="replySlips")
 </template>
 
 <script>

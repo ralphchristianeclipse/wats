@@ -1,7 +1,6 @@
-<template>
-  <q-page padding>
-    <pre>{{activity}}</pre>
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    pre {{activity}}
 </template>
 
 <script>

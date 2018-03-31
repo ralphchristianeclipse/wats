@@ -1,10 +1,6 @@
-<template>
-
-  <q-page padding>
-    <pre>
-      {{staff}}
-    </pre>
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    pre {{staff}}
 </template>
 
 <script>

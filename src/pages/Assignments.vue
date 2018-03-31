@@ -1,14 +1,13 @@
-<template>
-  <q-page padding>
-    <!-- content -->
-  </q-page>
+<template lang="pug">
+  q-page(padding)
 </template>
 
 <script>
-export default {
-  // name: 'PageName',
-}
+  export default {
+    // name: 'PageName',
+  };
 </script>
 
 <style>
+
 </style>

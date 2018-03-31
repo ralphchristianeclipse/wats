@@ -1,26 +1,15 @@
-<template>
-  <q-page padding>
-    <q-toolbar class="invert-bg" inverted>
-      <q-toolbar-title v-if="$route.params.id">
-        {{$route.params.id.toUpperCase()}}
-      </q-toolbar-title>
-    </q-toolbar>
-
-    <div class="row gutter-sm q-pa-sm">
-      <div class="col-sm-6 col-xs-12">
-        <assignments :assignments="assignments" />
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <tests :tests="tests"></tests>
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <activities :activities="activities" />
-      </div>
-      <div class="col-sm-6 col-xs-12">
-        <activities :activities="activities" />
-      </div>
-    </div>
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+      q-toolbar-title(v-if="$route.params.id") {{$route.params.id.toUpperCase()}}
+      .row.gutter-sm.q-pa-sm
+        .col-sm-6.col-xs-12
+          assignments(:assignments="assignments")
+      .col-sm-6.col-xs-12
+        tests(:tests="tests")
+      .col-sm-6.col-xs-12
+        activities(:activities="activities")
+      .col-sm-6.col-xs-12
+        activities(:activities="activities")
 </template>
 
 <script>

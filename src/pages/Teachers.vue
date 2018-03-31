@@ -1,9 +1,7 @@
-<template>
-
-  <q-page padding>
-    <q-search v-model="search" />
-    <teachers :teachers="searchedTeachers" />
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    q-search(v-model="search")
+    teachers(:teachers="searchedTeachers")
 </template>
 
 <script>
