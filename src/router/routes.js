@@ -91,6 +91,11 @@ export default [
         component: () => import("pages/Activity"),
         name: "activity",
         props: true
+      },
+      {
+        path: "/chat",
+        component: () => import("pages/Chat"),
+        name: "chat"
       }
     ]
   },

@@ -1,5 +1,5 @@
 <template lang="pug">
-  list-view(:items="tests" label="Tests" @select="onSelectTest")
+  list-view(:items="students" label="Students" avatar="")
     template(slot="label" slot-scope="{ item }") {{item.title}}
     template(slot="sublabel-first" slot-scope="{ item }") Period: {{item.period}}
     template(slot="sublabel-last" slot-scope="{ item }") Publish Date: {{item.date}}
@@ -8,19 +8,14 @@
 <script>
   import ListView from "src/components/ListView";
   export default {
-    name: "ComponentTests",
+    name: "ComponentStudents",
     components: {
       ListView
     },
     props: {
-      tests: {
+      students: {
         type: Array,
         default: () => []
-      }
-    },
-    methods: {
-      onSelectTest(test) {
-        this.$router.push({ name: "test", params: { id: test.id } });
       }
     }
   };

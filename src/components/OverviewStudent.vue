@@ -6,12 +6,14 @@
       .row.gutter-md
         .col-sm-6.col-xs-12
           assignments(:assignments="assignments")
-          q-btn.custom-btn(glossy color="secondary" @click="previousAssignmentsDate")
+          //q-btn.custom-btn(glossy color="secondary" @click="previousAssignmentsDate")
             div {{ assignmentsDatePrevious | date("dddd") }}
             div {{ assignmentsDatePrevious | date("MMMM DD, YYYY") }}
-          q-btn.custom-btn.pull-right(glossy color="secondary" @click="nextAssignmentsDate")
+          //q-btn.custom-btn.pull-right(glossy color="secondary" @click="nextAssignmentsDate")
             div {{ assignmentsDateNext | date("dddd") }}
             div {{ assignmentsDateNext | date("MMMM DD, YYYY") }}
+        .col-sm-6.col-xs-12
+          schedules(:schedules="schedules")
         .col-xs-12
           q-list.custom-list.for-calendar(multiline highlight separator)
             q-list-header.custom-header.primary.glossy Calendar

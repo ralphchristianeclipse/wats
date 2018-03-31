@@ -4,22 +4,22 @@
       q-toolbar(glossy)
         q-btn(glossy round dense icon="menu" @click="showDrawer")
         q-toolbar-title
-          a.al-logo.clearfix
+          a.al-logo
             span STP 
             | Central
         q-btn.q-mr-xs(v-if="auth.type === 'p'" round icon="people")
           q-chip.custom-chip(floating color="secondary") {{auth.children.length}}
           q-popover
             q-list(separator link)
-              q-item(v-for="(child,index) of auth.children" :key="index" @click.native="getParentChild(child.id)", v-close-overlay="true")
+              q-item(v-for="(child,index) of auth.children" :key="index" @click.native="getParentChild(child.id)", v-close-overlay="")
                 q-item-main
                   q-item-tile(label) {{ child.firstname }} {{ child.lastname }}
                   
         img.avatar(:src="auth.image" alt="")
         q-btn(glossy round icon="exit_to_app" @click="logout")
     
-    q-layout-drawer(side="left" v-model="drawer.left" :content-class="leftDrawerClasses" @click="showDrawer")
-      q-list.non-selectable(no-border link inset-delimiter)
+    q-layout-drawer(side="left" v-model="drawer.left", :content-class="leftDrawerClasses", :overlay="isMobile" breakpoint="600")
+      q-list.non-selectable(no-border link inset-delimiter @click.native="showDrawer(false)")
         template(v-for="(link,key,index) of links")
           q-item(v-if="!link.children" :key="`${link.name}-${index}`" :to="link.to" dark link)
             q-item-side(v-if="link.icon" :icon="link.icon")
@@ -31,11 +31,11 @@
 
     q-page-container
       q-toolbar.invert-bg.student-info(inverted)
-        q-toolbar-title(v-if="currentStudent") Hello, {{greeting}}
+        q-toolbar-title(v-if="greeting") Hello, {{greeting}}
           q-btn.btn-info(glossy color="secondary" size="md" @click="$router.push({name: 'profile'})") {{userType}} Profile
-        q-btn.btn-info(glossy color="warning" size="md") 55 Days Present
-        q-btn.btn-info(glossy color="info" size="md") 5 Days Absent
-        q-btn.btn-info(glossy color="tertiary" size="md") 3 Days Late
+        //- q-btn.btn-info(glossy color="warning" size="md") 55 Days Present
+        //- q-btn.btn-info(glossy color="info" size="md") 5 Days Absent
+        //- q-btn.btn-info(glossy color="tertiary" size="md") 3 Days Late
       transition(appear mode="out-in" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut")
         router-view(:key="$route.fullPath")
 </template>
@@ -101,12 +101,19 @@
                 }
               }
             ]
+          },
+          chat: {
+            label: "Chat",
+            to: {
+              name: "chat"
+            },
+            icon: "chat"
           }
         }
       };
     },
     computed: {
-      ...mapGetters(["auth", "currentStudent", "isMobile"]),
+      ...mapGetters(["auth", "currentStudent", "currentTeacher", "isMobile"]),
       leftDrawerClasses() {
         return [this.isMini ? "q-drawer-mini" : "", "bg-primary text-white"];
       },
@@ -154,9 +161,9 @@
         this.$store.commit("SET_WINDOW_SCROLL", event);
       },
 
-      showDrawer() {
+      showDrawer(toggle) {
         !this.isMobile
-          ? (this.drawer.mini = !this.drawer.mini)
+          ? (this.drawer.mini = toggle !== undefined ? toggle : !this.drawer.mini)
           : (this.drawer.left = !this.drawer.left);
       }
     },

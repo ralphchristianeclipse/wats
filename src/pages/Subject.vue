@@ -1,10 +1,11 @@
 <template>
   <q-page padding>
-    <!-- <q-toolbar class="invert-bg" inverted>
+    <q-toolbar class="invert-bg" inverted>
       <q-toolbar-title v-if="$route.params.id">
         {{$route.params.id.toUpperCase()}}
       </q-toolbar-title>
-    </q-toolbar> -->
+    </q-toolbar>
+
     <div class="row gutter-sm q-pa-sm">
       <div class="col-sm-6 col-xs-12">
         <assignments :assignments="assignments" />

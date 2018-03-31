@@ -1,17 +1,19 @@
-<template>
+<template lang="pug">
+  q-page(padding)
+    h1(v-if="loading") Loading
+    pdf(:src="pdfSrc")
+    pre {{test}}
 
-  <q-page padding>
-    <h1 v-if="loading">Loading</h1>
-    <pre v-else>
-      {{test}}
-    </pre>
-  </q-page>
 </template>
 
 <script>
   import { mapGetters, mapActions } from "vuex";
+  import Pdf from "vue-pdf";
   export default {
     name: "PageTest",
+    components: {
+      Pdf
+    },
     data() {
       return {
         loader: 0
@@ -21,6 +23,11 @@
       ...mapGetters("test", ["test"]),
       loading() {
         return !!this.loader;
+      },
+      pdfSrc() {
+        return this.test
+          ? `http://stpcentral.net/assets/pdf/${this.test.filename}`
+          : "";
       }
     },
     watch: {

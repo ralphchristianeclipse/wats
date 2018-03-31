@@ -1,17 +1,27 @@
 <template lang="pug">
-  transition-group.custom-list(tag="q-list", name="list", multiline, highlight, separator)
-    q-list-header.custom-header.default.glossy(key="header") 
-      slot(name="header") {{ label }}
-    q-item.cursor-pointer(v-for="(item,index) of items", :key="item.id || index", @click.native="$emit('select', item)")
-      q-item-main
-        q-item-tile(label)
-          slot(name="label", :item="item") No Label 
-        q-item-tile(sublabel)
-          slot(name="sublabel-first", :item="item")
-            | No Sub Label
-        q-item-tile(sublabel)
-          slot(name="sublabel-last", :item="item")
-            | No Sub Label
+  q-card
+    q-toolbar(glossy color="default" text-color="faded")
+      slot(name="header-before")
+      q-toolbar-title 
+        slot(name="header") {{ label }}
+      slot(name="header-after")
+    transition-group.custom-list(tag="q-list", name="list", multiline, highlight, separator)
+      q-item.cursor-pointer(v-for="(item,index) of items", :key="item.id || index", @click.native="$emit('select', item)")
+        q-item-side(v-if="$scopedSlots.left && !avatar")
+          slot(name="left", :item="item")
+        q-item-side(v-else :avatar="item[avatar]") 
+        q-item-main
+          q-item-tile(label)
+            slot(name="label", :item="item") No Label 
+          q-item-tile(sublabel)
+            slot(name="sublabel-first", :item="item")
+              | No Sub Label
+          q-item-tile(sublabel)
+            slot(name="sublabel-last", :item="item")
+              | No Sub Label
+        q-item-side(right v-if="$scopedSlots.right")
+          slot(name="right", :item="item")
+
 </template>
 
 <script>
@@ -25,6 +35,10 @@
       label: {
         type: String,
         default: "No Label"
+      },
+      avatar: {
+        type: String,
+        default: ""
       }
     }
   };

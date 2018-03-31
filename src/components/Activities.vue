@@ -1,19 +1,15 @@
-<template>
-  <q-list class="custom-list" multiline highlight separator>
-    <q-list-header class="custom-header default glossy">Activities</q-list-header>
-    <template v-for="(activity,index) of activities">
-      <q-item :key="index" :to="{ name: 'activity', params: { id: activity.id } }">
-        <q-item-main>
-          <q-item-tile label> {{activity.title}} </q-item-tile>
-          <q-item-tile sublabel> Period: {{activity.period}} </q-item-tile>
-          <q-item-tile sublabel> Publish Date: {{activity.date}} </q-item-tile>
-        </q-item-main>
-        <q-item-side right>
-          <q-item-tile>Status: {{activity.details}}</q-item-tile>
-        </q-item-side>
-      </q-item>
-    </template>
-  </q-list>
+<template lang="pug">
+  q-card
+    q-toolbar(glossy color="default" text-color="faded")
+      q-toolbar-title Activities
+    q-list(v-if="activities && activities.length" multiline highlight separator)
+      q-item(v-for="(activity,index) of activities", :key="index")
+        q-item-main
+          q-item-tile(label) {{activity.title}}
+          q-item-tile(sublabel) Period: {{activity.period}} 
+          q-item-tile(sublabel) Publish Date: {{activity.date}}
+        q-item-side(right)
+          q-item-tile Status: {{activity.details}}
 </template>
 
 <script>

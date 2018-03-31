@@ -2,12 +2,13 @@
   table
     thead
       tr
-        th(v-for="(column,index) of columns" :key="index")
+        th(v-for="(column,index) of columns", :key="index")
     tbody
-      tr(v-for="(assignment,index) of assignments" :key="index")
+      tr(v-for="(assignment,index) of assignments", :key="index")
         td 
           div {{ assignment.inputdate | date("dddd") }}
           div {{ assignment.inputdate | date("YYYY-MM-DD") }}
+        td
 </template>
 
 <script>

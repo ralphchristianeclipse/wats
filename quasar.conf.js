@@ -75,7 +75,10 @@ module.exports = function(ctx) {
         "QBreadcrumbsEl",
         "QBtnGroup",
         "QBtn",
-        "QBtnDropdown"
+        "QBtnDropdown",
+        "QChatMessage",
+        "QBreadcrumbs",
+        "QBreadcrumbsEl"
       ],
       directives: ["Ripple", "CloseOverlay"],
       // Quasar plugins

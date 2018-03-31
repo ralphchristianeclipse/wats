@@ -1,28 +1,23 @@
 <template lang="pug">
-  q-list.custom-list(multiline highlight separator)
-    q-list-header.custom-header.default.glossy
-      q-icon(name="edit" color="grey-6")
-      | Assignments
-      .pull-right.dtpicker
-        q-btn(glossy round size="sm" icon="date_range" color="secondary")
+  q-card
+    q-toolbar(glossy color="default" text-color="faded")
+      q-icon(name="edit" color="grey-6")  
+      q-toolbar-title Assignments
+      q-btn(glossy round size="sm" icon="date_range" color="secondary")
         q-popover
           q-datetime-picker(v-model="date" type="date")
-    q-item(v-for="(assignment,index) of assignments" :key="index")
-      q-item-main
-        q-item-tile.desc(label) {{assignment.description}}
-        q-item-tile.subject(sublabel) Subject: {{assignment.subject}}
-        q-item-tile(sublabel) Teacher: {{assignment.tcher_title}} {{assignment.tchr_fname}} {{assignment.tchr_lname}}
-        q-item-tile(sublabel) Teacher Date: {{assignment.pubdate}}
-
+    q-list(v-if="assignments && assignments.length" multiline highlight separator)
+      q-item(v-for="(assignment,index) of assignments" :key="index")
+        q-item-main
+          q-item-tile.desc(label) {{assignment.description}}
+          q-item-tile.subject(sublabel) Subject: {{assignment.subject}}
+          q-item-tile(sublabel) Teacher: {{assignment.tcher_title}} {{assignment.tchr_fname}} {{assignment.tchr_lname}}
+          q-item-tile(sublabel) Teacher Date: {{assignment.pubdate}}
 </template>
 
 <script>
-  import ListView from "src/components/ListView";
   export default {
     name: "ComponentAssignments",
-    components: {
-      ListView
-    },
     props: {
       assignments: {
         type: Array,

@@ -1,3 +1,10 @@
+const filterObject = (data, filter) =>
+  Object.keys(data)
+    .filter(key => key.startsWith(filter))
+    .reduce(
+      (obj, key) => ({ ...obj, [key.replace(filter, "")]: data[key] }),
+      {}
+    );
 export const getStudents = async function({ commit }, payload = {}) {
   const { grade = 4, section = "J" } = payload;
 
@@ -9,6 +16,7 @@ export const getStudents = async function({ commit }, payload = {}) {
   commit("SET_STUDENTS", students);
   return data;
 };
+
 export const getStudent = async function(
   { commit, rootGetters },
   payload = {}
@@ -19,6 +27,11 @@ export const getStudent = async function(
     method: "get",
     url: `/sprofile/${id}`
   });
+  const keys = Object.keys(data);
+  data.guardians = {};
+  data.guardians.guardian = filterObject(data, "s_guardian");
+  data.guardians.dad = filterObject(data, "s_dad");
+  data.guardians.mom = filterObject(data, "s_mom");
 
   commit("SET_STUDENT", data);
   return data;

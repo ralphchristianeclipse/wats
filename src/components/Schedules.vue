@@ -1,45 +1,36 @@
-<template>
-  <q-list class="custom-list" multiline highlight separator>
-    <q-list-header class="custom-header default glossy">SCHEDULES
-      <div class="pull-right dtpicker">
-        <q-btn glossy size="sm" icon="date_range" color="secondary" round>
-          <q-popover>
-           <q-datetime-picker v-model="date" type="date" />
-          </q-popover>
-        </q-btn>
-      </div>
-    </q-list-header> <template v-for="(schedule,index) of schedules">
-      <q-item :key="index">
-        <q-item-main>
-          <q-item-tile label> Time:</q-item-tile>
-          <q-item-tile sublabel> Subject: </q-item-tile>
-          <q-item-tile sublabel> Teacher:  </q-item-tile>
-        </q-item-main>
-      </q-item>
-    </template>
-  </q-list>
+<template lang="pug">
+  list-view(:items="schedules" label="Schedules")
+    template(slot="header-after")
+      q-btn(glossy round size="sm" icon="date_range" color="secondary")
+        q-popover
+          q-datetime-picker(v-model="date" type="date")
+    template(slot="label" slot-scope="{ item }") Time: {{item.schedule}}
+    template(slot="sublabel-first" slot-scope="{ item }") Subject: {{item.subject}}
 </template>
 
 <script>
-export default {
-  name: "ComponentSchedules",
-  props: {
-    schedules: {
-      type: Array,
-      default: () => []
+  import ListView from "src/components/ListView";
+  export default {
+    name: "ComponentSchedules",
+    components: {
+      ListView
+    },
+    props: {
+      schedules: {
+        type: Array,
+        default: () => []
+      }
+    },
+    data() {
+      return {
+        date: new Date()
+      };
     }
-  },
-  data() {
-    return {
-      date: new Date()
-    };
-  }
-};
+  };
 </script>
 
 <style lang="stylus" scoped>
-.dtpicker {
-  margin: 0 10px;
-}
+  .dtpicker
+    margin: 0 10px
 </style>
 
