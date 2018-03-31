@@ -12,12 +12,15 @@
         q-item-side(v-else :avatar="item[avatar]") 
         q-item-main
           q-item-tile(label)
-            slot(name="label", :item="item") No Label 
+            .loading-line(v-if="loading")
+            slot(v-else name="label", :item="item") No Label 
           q-item-tile(sublabel)
-            slot(name="sublabel-first", :item="item")
+            .loading-line(v-if="loading")
+            slot(v-else name="sublabel-first", :item="item")
               | No Sub Label
           q-item-tile(sublabel)
-            slot(name="sublabel-last", :item="item")
+            .loading-line(v-if="loading")
+            slot(v-else name="sublabel-last", :item="item")
               | No Sub Label
         q-item-side(right v-if="$scopedSlots.right")
           slot(name="right", :item="item")
@@ -39,6 +42,9 @@
       avatar: {
         type: String,
         default: ""
+      },
+      loading: {
+        type: Boolean
       }
     }
   };

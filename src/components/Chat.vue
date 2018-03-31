@@ -1,15 +1,25 @@
 <template lang="pug">
-  .q-pa-md
-    messages(:messages="messages")
-    q-input(v-model="newMessage" float-label="New Message" @keyup.enter="sendMessage")
+  q-card
+    q-toolbar(glossy color="secondary")
+      q-toolbar-title Chat
+    q-card-main.chat-main(ref="chat")
+      message(v-for="(message,index) of messages", :key="index" :message="message")
+    hr
+    .q-pa-sm
+      q-input.col-xs-11(v-model="newMessage" float-label="New Message" @keyup.enter="sendMessage")
+    .q-pa-sm
+      q-btn.full-width(@click="sendMessage" icon="send" color="primary")  Send
 </template>
 
 <script>
-  import Messages from "src/components/Messages";
+  import Message from "src/components/Message";
+  import { scroll } from "quasar";
+  const { getScrollTarget, setScrollPosition } = scroll;
+
   export default {
     name: "Chat",
     components: {
-      Messages
+      Message
     },
     data() {
       return {
@@ -43,7 +53,8 @@
       };
     },
     methods: {
-      sendMessage() {
+      async sendMessage() {
+        if (!this.newMessage) return;
         this.messages.push({
           id: +new Date(),
           text: this.newMessage,
@@ -51,11 +62,20 @@
           receiver: 2
         });
         this.newMessage = "";
+        await this.chatScrollToBottom();
+      },
+      async chatScrollToBottom() {
+        await this.$nextTick();
+        const chat = this.$refs.chat.$el;
+        setScrollPosition(chat, chat.scrollHeight, 500);
       }
     }
   };
 </script>
 
-<style>
-
+<style lang="stylus" scoped>
+  .chat
+    &-main
+      overflow-y: auto
+      height: calc(100vh - 350px)
 </style>

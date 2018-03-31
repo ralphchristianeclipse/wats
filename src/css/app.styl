@@ -1,3 +1,4 @@
+
 // app global css
 .q-layout-page-container
   background: #f1f3f4
@@ -160,3 +161,33 @@
 
 .q-drawer-mini
   width: 50px
+
+@keyframes pulse
+  0%
+    background-color: rgba(165, 165, 165, 0.1)
+
+  50%
+    background-color: rgba(165, 165, 165, 0.3)
+
+  100%
+    background-color: rgba(165, 165, 165, 0.1)
+
+@keyframes loader
+  0%
+    background-position: -468px 0
+
+  100%
+    background-position: 468px 0
+
+.pulse
+  animation: pulse 1s infinite ease-in-out
+
+.loader
+  animation: loader 1s infinite linear
+  animation-fill-mode: forwards
+
+.loading
+  &-line
+    @extend .pulse
+    display: block
+    height: 10px

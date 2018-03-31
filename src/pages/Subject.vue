@@ -1,11 +1,11 @@
 <template lang="pug">
   q-page(padding)
-      q-toolbar-title(v-if="$route.params.id") {{$route.params.id.toUpperCase()}}
-      .row.gutter-sm.q-pa-sm
-        .col-sm-6.col-xs-12
-          assignments(:assignments="assignments")
+    h5.text-center(v-if="$route.params.id") {{$route.params.id.replace('_', ' ').toUpperCase()}}
+    .row.gutter-sm.q-pa-sm
       .col-sm-6.col-xs-12
-        tests(:tests="tests")
+        assignments(:assignments="assignments")
+      .col-sm-6.col-xs-12
+        tests(:tests="tests", :loading="loading")
       .col-sm-6.col-xs-12
         activities(:activities="activities")
       .col-sm-6.col-xs-12
@@ -56,12 +56,14 @@
         "getSubjectHandouts"
       ]),
       async getAllStudentData() {
+        this.loading = true;
         await Promise.all([
           this.getSubjectAssignments(),
           this.getSubjectTests(),
           this.getSubjectActivities(),
           this.getSubjectHandouts()
         ]);
+        this.loading = false;
       }
     }
   };

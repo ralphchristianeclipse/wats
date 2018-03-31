@@ -1,5 +1,5 @@
 <template lang="pug">
-  list-view(:items="tests" label="Tests" @select="onSelectTest")
+  list-view(:items="tests" label="Tests" @select="onSelectTest", :loading="loading")
     template(slot="label" slot-scope="{ item }") {{item.title}}
     template(slot="sublabel-first" slot-scope="{ item }") Period: {{item.period}}
     template(slot="sublabel-last" slot-scope="{ item }") Publish Date: {{item.date}}
@@ -16,6 +16,9 @@
       tests: {
         type: Array,
         default: () => []
+      },
+      loading: {
+        type: Boolean
       }
     },
     methods: {

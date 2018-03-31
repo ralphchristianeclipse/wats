@@ -2,7 +2,7 @@
   q-layout(view="hHh Lpr fFr" @resize="setWindowSize" @scroll="setWindowScroll")
     q-layout-header
       q-toolbar(glossy)
-        q-btn(glossy round dense icon="menu" @click="showDrawer")
+        q-btn(glossy round dense icon="menu" @click="showDrawer()")
         q-toolbar-title
           a.al-logo
             span STP 
@@ -18,7 +18,7 @@
         img.avatar(:src="auth.image" alt="")
         q-btn(glossy round icon="exit_to_app" @click="logout")
     
-    q-layout-drawer(side="left" v-model="drawer.left", :content-class="leftDrawerClasses", :overlay="isMobile" breakpoint="600")
+    q-layout-drawer(side="left" v-model="drawer.left", :content-class="leftDrawerClasses", :overlay="isMobile", :breakpoint="600")
       q-list.non-selectable(no-border link inset-delimiter @click.native="showDrawer(false)")
         template(v-for="(link,key,index) of links")
           q-item(v-if="!link.children" :key="`${link.name}-${index}`" :to="link.to" dark link)
