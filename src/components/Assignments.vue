@@ -12,7 +12,6 @@
           q-item-tile.desc(label) {{assignment.description}}
           q-item-tile.subject(sublabel) Subject: {{assignment.subject}}
           q-item-tile(sublabel) Teacher: {{assignment.tcher_title}} {{assignment.tchr_fname}} {{assignment.tchr_lname}}
-          q-item-tile(sublabel) Teacher Date: {{assignment.pubdate}}
 </template>
 
 <script>
