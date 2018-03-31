@@ -1,11 +1,8 @@
-<template>
-
-  <q-page padding>
-    <h1 v-if="loading">Loading</h1>
-    <pre v-else>
-      {{test}}
-    </pre>
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    h1(v-if="loading") Loading
+    pre(v-else)
+      | {{test}}
 </template>
 
 <script>

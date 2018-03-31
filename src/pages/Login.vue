@@ -1,59 +1,41 @@
-<template>
-
-  <q-page class="flex flex-center main-body">
-    <q-card class="login">
-      <div class="title">
-        <h1>Sign in to STPCentral</h1>
-      </div>
-      <q-card-main>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Email</label>
-          <div class="col-sm-10">
-            <input v-model="form.username" class="form-control" placeholder="Username">
-          </div>
-        </div>
-        <div class="form-group">
-          <label class="col-sm-2 control-label">Password</label>
-          <div class="col-sm-10">
-            <input type="password" v-model="form.password"  class="form-control" placeholder="Password">
-          </div>
-        </div>
-        <div class="form-group custom-form">
-          <div class="offset-2 col-sm-10">
-            <q-btn class="btn-animate btn-transparent" @click="login(form)">Login</q-btn>
-          </div>
-        </div>
-        <!-- <q-field icon="email" helper="Your username">
-          <q-input v-model="form.username" float-label="Username" />
-        </q-field>
-        <q-field icon="vpn_key" helper="Your password">
-          <q-input v-model="form.password" type="password" float-label="Password" />
-        </q-field> -->
-      </q-card-main>
-
-      <!-- <q-card-actions>
-        
-      </q-card-actions> -->
-    </q-card>
-  </q-page>
+<template lang="pug">
+  q-page.flex.flex-center.main-body
+    q-card.login
+      .title
+        h1 Sign in to STPCentral
+      q-card-main
+        .form-group
+          label.col-sm-2.control-label Email
+          .col-sm-10
+            input(v-model="form.username" class="form-control" placeholder="Username")
+        .form-group
+          label.col-sm-2.control-label Password
+          .col-sm-10
+            input.form-control(type="password" v-model="form.password" placeholder="Password")
+        .form-group.custom-form
+          .offset-2.col-sm-10
+            q-btn.btn-animate.btn-transparent(@click="login(form)") Login
+          q-input(v-model="form.username" float-label="Username")
+        q-field(icon="vpn_key" helper="Your password")
+          q-input(v-model="form.password" type="password" float-label="Password")   
 </template>
 
 <script>
-import { mapActions } from "vuex";
-export default {
-  name: "PageLogin",
-  data() {
-    return {
-      form: {
-        username: "",
-        password: ""
-      }
-    };
-  },
-  methods: {
-    ...mapActions(["login"])
-  }
-};
+  import { mapActions } from "vuex";
+  export default {
+    name: "PageLogin",
+    data() {
+      return {
+        form: {
+          username: "",
+          password: ""
+        }
+      };
+    },
+    methods: {
+      ...mapActions(["login"])
+    }
+  };
 </script>
 
 <style lang="stylus" scoped>

@@ -1,7 +1,5 @@
-<template>
-  <q-page padding>
-    <!-- content -->
-  </q-page>
+<template lang="pug">
+  q-page(padding)
 </template>
 
 <script>

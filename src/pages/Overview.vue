@@ -1,5 +1,4 @@
 <template lang="pug">
-
   q-page(padding)
    overview-student(v-if="isParentOrStudent")
 </template>

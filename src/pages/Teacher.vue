@@ -1,8 +1,6 @@
-<template>
-
-  <q-page padding>
-    <pre>{{teacher}}</pre>
-  </q-page>
+<template lang="pug">
+  q-page(padding)
+    pre {{teacher}}
 </template>
 
 <script>
