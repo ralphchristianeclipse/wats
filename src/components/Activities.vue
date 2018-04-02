@@ -1,7 +1,8 @@
 <template lang="pug">
   q-card
-    q-toolbar(glossy color="default" text-color="faded")
-      q-toolbar-title Activities
+    q-toolbar(glossy color="secondary" text-color="faded")
+      q-icon(name="stars")  
+      q-toolbar-title.text-white Activities
     q-list(v-if="activities && activities.length" multiline highlight separator)
       q-item(v-for="(activity,index) of activities", :key="index")
         q-item-main
@@ -13,15 +14,15 @@
 </template>
 
 <script>
-  export default {
-    name: "ComponentActivities",
-    props: {
-      activities: {
-        type: Array,
-        default: () => []
-      }
+export default {
+  name: "ComponentActivities",
+  props: {
+    activities: {
+      type: Array,
+      default: () => []
     }
-  };
+  }
+};
 </script>
 
 <style>

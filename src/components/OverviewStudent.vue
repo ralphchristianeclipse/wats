@@ -1,4 +1,5 @@
 <template lang="pug">
+ 
   q-tabs.custom-tab(color="secondary" glossy)
     q-tab(default slot="title" name="overview" label="Overview")
     q-tab(slot="title" name="attendance" label="Attendance")
@@ -24,70 +25,70 @@
 </template>
 
 <script>
-  import { date } from "quasar";
-  import { mapActions, mapGetters } from "vuex";
-  import Assignments from "src/components/Assignments";
-  import Calendar from "src/components/Calendar";
-  import Schedules from "src/components/Schedules";
+import { date } from "quasar";
+import { mapActions, mapGetters } from "vuex";
+import Assignments from "src/components/Assignments";
+import Calendar from "src/components/Calendar";
+import Schedules from "src/components/Schedules";
 
-  export default {
-    name: "PageOverview",
-    components: {
-      Assignments,
-      Schedules,
-      Calendar
-    },
-    data() {
-      return {
-        date: {
-          assignments: new Date()
-        }
-      };
-    },
-    computed: {
-      ...mapGetters("assignment", ["assignments"]),
-      ...mapGetters("schedule", ["schedules"]),
-      assignmentsDatePrevious() {
-        return date.subtractFromDate(this.date.assignments, {
-          days: 1
-        });
-      },
-      assignmentsDateNext() {
-        return date.addToDate(this.date.assignments, {
-          days: 1
-        });
+export default {
+  name: "PageOverview",
+  components: {
+    Assignments,
+    Schedules,
+    Calendar
+  },
+  data() {
+    return {
+      date: {
+        assignments: new Date()
       }
+    };
+  },
+  computed: {
+    ...mapGetters("assignment", ["assignments"]),
+    ...mapGetters("schedule", ["schedules"]),
+    assignmentsDatePrevious() {
+      return date.subtractFromDate(this.date.assignments, {
+        days: 1
+      });
     },
-    watch: {
-      $route: {
-        async handler(val) {
-          await Promise.all([
-            this.getAssignmentsToday(),
-            this.getSchedulesToday()
-          ]);
-        },
-        immediate: true
+    assignmentsDateNext() {
+      return date.addToDate(this.date.assignments, {
+        days: 1
+      });
+    }
+  },
+  watch: {
+    $route: {
+      async handler(val) {
+        await Promise.all([
+          this.getAssignmentsToday(),
+          this.getSchedulesToday()
+        ]);
       },
-      ["date.assignments"]: {
-        async handler(val) {
-          await this.getAssignmentsByDate({
-            date: val
-          });
-        }
-      }
+      immediate: true
     },
-    methods: {
-      ...mapActions("assignment", [
-        "getAssignmentsToday",
-        "getAssignmentsByDate"
-      ]),
-      ...mapActions("schedule", ["getSchedulesToday", "getSchedulesByDate"]),
-      async previousAssignmentsDate() {
-        this.date.assignments = this.assignmentsDatePrevious;
-      },
-      nextAssignmentsDate() {
-        this.date.assignments = this.assignmentsDateNext;
+    ["date.assignments"]: {
+      async handler(val) {
+        await this.getAssignmentsByDate({
+          date: val
+        });
       }
     }
-  };
+  },
+  methods: {
+    ...mapActions("assignment", [
+      "getAssignmentsToday",
+      "getAssignmentsByDate"
+    ]),
+    ...mapActions("schedule", ["getSchedulesToday", "getSchedulesByDate"]),
+    async previousAssignmentsDate() {
+      this.date.assignments = this.assignmentsDatePrevious;
+    },
+    nextAssignmentsDate() {
+      this.date.assignments = this.assignmentsDateNext;
+    }
+  }
+};
 </script>

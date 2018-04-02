@@ -33,221 +33,235 @@
       q-toolbar.invert-bg.student-info(inverted)
         q-toolbar-title(v-if="greeting") Hello, {{greeting}}
           q-btn.btn-info(glossy color="secondary" size="md" @click="$router.push({name: 'profile'})") {{userType}} Profile
-        //- q-btn.btn-info(glossy color="warning" size="md") 55 Days Present
-        //- q-btn.btn-info(glossy color="info" size="md") 5 Days Absent
-        //- q-btn.btn-info(glossy color="tertiary" size="md") 3 Days Late
+        q-btn.btn-info(glossy color="warning" size="md") 55 Days Present
+        q-btn.btn-info(glossy color="info" size="md") 5 Days Absent
+        q-btn.btn-info(glossy color="tertiary" size="md") 3 Days Late
       transition(appear mode="out-in" enter-active-class="animated zoomIn" leave-active-class="animated zoomOut")
         router-view(:key="$route.fullPath")
 </template>
 
 <script>
-  import { openURL } from "quasar";
-  import { mapGetters, mapActions } from "vuex";
-  export default {
-    // name: 'LayoutName',
-    data() {
-      return {
-        drawer: {
-          left: true,
-          mini: false
+import { openURL } from "quasar";
+import { mapGetters, mapActions } from "vuex";
+export default {
+  // name: 'LayoutName',
+  data() {
+    return {
+      drawer: {
+        left: true,
+        mini: false
+      },
+      links: {
+        overview: {
+          label: "Overview",
+          to: {
+            name: "overview"
+          },
+          icon: "dashboard"
         },
-        links: {
-          overview: {
-            label: "Overview",
-            to: {
-              name: "overview"
-            },
-            icon: "dashboard"
+        profile: {
+          label: "Profile",
+          to: {
+            name: "profile"
           },
-          profile: {
-            label: "Profile",
-            to: {
-              name: "profile"
-            },
-            icon: "face"
+          icon: "face"
+        },
+        replySlips: {
+          label: "Reply Slips",
+          to: {
+            name: "reply-slips"
           },
-          replySlips: {
-            label: "Reply Slips",
-            to: {
-              name: "reply-slips"
-            },
-            icon: "feedback"
-          },
-          subjects: {
-            label: "Subjects",
-            icon: "book",
-            children: []
-          },
-          directory: {
-            label: "Directory",
-            icon: "book",
-            children: [
-              {
-                label: "Classmates",
-                to: {
-                  name: "classmates"
-                }
-              },
-              {
-                label: "Teachers",
-                to: {
-                  name: "teachers"
-                }
-              },
-              {
-                label: "Staff",
-                to: {
-                  name: "staff"
-                }
+          icon: "feedback"
+        },
+        subjects: {
+          label: "Subjects",
+          icon: "book",
+          children: []
+        },
+        directory: {
+          label: "Directory",
+          icon: "book",
+          children: [
+            {
+              label: "Classmates",
+              to: {
+                name: "classmates"
               }
-            ]
-          },
-          chat: {
-            label: "Chat",
-            to: {
-              name: "chat"
             },
-            icon: "chat"
+            {
+              label: "Teachers",
+              to: {
+                name: "teachers"
+              }
+            },
+            {
+              label: "Staff",
+              to: {
+                name: "staff"
+              }
+            }
+          ]
+        },
+        chat: {
+          label: "Chat",
+          to: {
+            name: "chat"
+          },
+          icon: "chat"
+        }
+      }
+    };
+  },
+  computed: {
+    ...mapGetters(["auth", "currentStudent", "currentTeacher", "isMobile"]),
+    leftDrawerClasses() {
+      return [this.isMini ? "q-drawer-mini" : "", "bg-primary text-white"];
+    },
+    isMini() {
+      return this.drawer.mini && !this.isMobile;
+    },
+    greeting() {
+      return this.currentStudent
+        ? `${this.currentStudent.firstname} ${this.currentStudent.lastname} ${
+            this.currentStudent.grade
+          }-${this.currentStudent.section}`
+        : this.currentTeacher
+          ? `${this.currentTeacher.title} ${this.currentTeacher.firstname} ${
+              this.currentTeacher.lastname
+            }`
+          : "";
+    },
+    userType() {
+      const types = {
+        s: "Student",
+        p: "Student",
+        t: "Teacher"
+      };
+      return this.auth ? types[this.auth.type] : "";
+    }
+  },
+  watch: {
+    isMobile: {
+      handler(val) {
+        this.drawer.left = !val;
+      },
+      immediate: true
+    }
+  },
+  methods: {
+    openURL,
+    ...mapActions(["logout", "getParentChild"]),
+    goToProfile() {
+      this.$router.push({ name: "studentProfile" });
+    },
+    setWindowSize(event) {
+      this.$store.commit("SET_WINDOW_SIZE", event);
+    },
+    setWindowScroll(event) {
+      this.$store.commit("SET_WINDOW_SCROLL", event);
+    },
+
+    showDrawer(toggle) {
+      !this.isMobile
+        ? (this.drawer.mini = toggle !== undefined ? toggle : !this.drawer.mini)
+        : (this.drawer.left = !this.drawer.left);
+    }
+  },
+  async mounted() {
+    const { data: subjects } = await this.$axios({
+      method: "get",
+      url: `http://stpcentral.net/subjects/sidemenu/4-J`
+    });
+    this.links.subjects.children = subjects.map(subject => {
+      const link = {
+        label: subject.subject,
+        to: {
+          name: "subject",
+          params: {
+            id: subject.subject.replace(" ", "_")
           }
         }
       };
-    },
-    computed: {
-      ...mapGetters(["auth", "currentStudent", "currentTeacher", "isMobile"]),
-      leftDrawerClasses() {
-        return [this.isMini ? "q-drawer-mini" : "", "bg-primary text-white"];
-      },
-      isMini() {
-        return this.drawer.mini && !this.isMobile;
-      },
-      greeting() {
-        return this.currentStudent
-          ? `${this.currentStudent.firstname} ${this.currentStudent.lastname} ${
-              this.currentStudent.grade
-            }-${this.currentStudent.section}`
-          : this.currentTeacher
-            ? `${this.currentTeacher.title} ${this.currentTeacher.firstname} ${
-                this.currentTeacher.lastname
-              }`
-            : "";
-      },
-      userType() {
-        const types = {
-          s: "Student",
-          p: "Student",
-          t: "Teacher"
-        };
-        return this.auth ? types[this.auth.type] : "";
-      }
-    },
-    watch: {
-      isMobile: {
-        handler(val) {
-          this.drawer.left = !val;
-        },
-        immediate: true
-      }
-    },
-    methods: {
-      openURL,
-      ...mapActions(["logout", "getParentChild"]),
-      goToProfile() {
-        this.$router.push({ name: "studentProfile" });
-      },
-      setWindowSize(event) {
-        this.$store.commit("SET_WINDOW_SIZE", event);
-      },
-      setWindowScroll(event) {
-        this.$store.commit("SET_WINDOW_SCROLL", event);
-      },
-
-      showDrawer(toggle) {
-        !this.isMobile
-          ? (this.drawer.mini = toggle !== undefined ? toggle : !this.drawer.mini)
-          : (this.drawer.left = !this.drawer.left);
-      }
-    },
-    async mounted() {
-      const { data: subjects } = await this.$axios({
-        method: "get",
-        url: `http://stpcentral.net/subjects/sidemenu/4-J`
-      });
-      this.links.subjects.children = subjects.map(subject => {
-        const link = {
-          label: subject.subject,
-          to: {
-            name: "subject",
-            params: {
-              id: subject.subject.replace(" ", "_")
-            }
-          }
-        };
-        return link;
-      });
-    }
-  };
+      return link;
+    });
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
-  @import '~variables'
+@import '~variables';
 
-  .router-link-active, .q-item:focus
-    background: $secondary
+.router-link-active, .q-item:focus {
+  background: $secondary;
+}
 
-  .student-info
-    margin: 0
-    padding: 0.5em 2em
-    color: #666
-    font-weight: 700
-    font-size: 24px
-    opacity: 0.9
+.student-info {
+  margin: 0;
+  padding: 0.5em 1em;
+  color: #666;
+  font-weight: 700;
+  font-size: 24px;
+  opacity: 0.9;
+}
 
-  .btn-info
-    margin: 0 10px
+.btn-info {
+  margin: 0 10px;
+}
 
-  a.al-logo
-    display: block
-    float: left
-    color: #fff
-    text-decoration: none
-    white-space: nowrap
-    font-size: 24px
-    font-family: Roboto, sans-serif
-    line-height: 60px
-    transition: color 0.2s ease
+a.al-logo {
+  display: block;
+  float: left;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 24px;
+  font-family: Roboto, sans-serif;
+  line-height: 60px;
+  transition: color 0.2s ease;
+}
 
-  a.al-logo span
-    color: #209e91
+a.al-logo span {
+  color: #209e91;
+}
 
-  a:hover
-    color: #1b867b
+a:hover {
+  color: #1b867b;
+}
 
-  .q-item, .q-item-label
-    font-size: 13px
-    transition: color 0.2s ease
+.q-item, .q-item-label {
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
 
-  .q-item, .q-item-label
-    font-size: 13px
-    transition: color 0.2s ease
+.q-item, .q-item-label {
+  font-size: 13px;
+  transition: color 0.2s ease;
+}
 
-  .q-item-link:hover
-    background: transparent
+.q-item-link:hover {
+  background: transparent;
+}
 
-  .q-item:hover
-    background: transparent
-    color: #1b867b
+.q-item:hover {
+  background: transparent;
+  color: #1b867b;
+}
 
-  .q-icon
-    color: #1b867b
+.q-icon {
+  color: #1b867b;
+}
 
-  .sub-item
-    padding-left: 52px
+.sub-item {
+  padding-left: 52px;
+}
 
-  .sub-item::first-letter
-    text-transform: uppercase
+.sub-item::first-letter {
+  text-transform: uppercase;
+}
 
-  img.avatar
-    margin: 0 15px
-    width: 45px
-    height: 45px
+img.avatar {
+  margin: 0 15px;
+  width: 45px;
+  height: 45px;
+}
 </style>

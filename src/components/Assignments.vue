@@ -1,8 +1,8 @@
 <template lang="pug">
   q-card
-    q-toolbar(glossy color="default" text-color="faded")
-      q-icon(name="edit" color="grey-6")  
-      q-toolbar-title Assignments
+    q-toolbar(glossy color="secondary" text-color="faded")
+      q-icon(name="assignment_late")  
+      q-toolbar-title.text-white Assignments
       q-btn(glossy round size="sm" icon="date_range" color="secondary")
         q-popover
           q-datetime-picker(v-model="date" type="date")
@@ -15,30 +15,33 @@
 </template>
 
 <script>
-  export default {
-    name: "ComponentAssignments",
-    props: {
-      assignments: {
-        type: Array,
-        default: () => []
-      }
-    },
-    data() {
-      return {
-        date: new Date()
-      };
+export default {
+  name: "ComponentAssignments",
+  props: {
+    assignments: {
+      type: Array,
+      default: () => []
     }
-  };
+  },
+  data() {
+    return {
+      date: new Date()
+    };
+  }
+};
 </script>
 
 <style lang="stylus" scoped>
-  .desc
-    font-size: 14px
-    cursor: pointer
+.desc {
+  font-size: 14px;
+  cursor: pointer;
+}
 
-  .subject
-    text-transform: capitalize
+.subject {
+  text-transform: capitalize;
+}
 
-  .dtpicker
-    margin: 0 10px
+.dtpicker {
+  margin: 0 10px;
+}
 </style>

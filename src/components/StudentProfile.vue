@@ -24,17 +24,17 @@
             q-item-main
               q-item-tile.desc.spacer(label)
                 q-icon(name="phone" color="black") 
-                span Contact No.
+                span  Contact No.
                 span.pull-right 6789889
             
               q-item-tile.desc(label)
                 q-icon(name="contact_phone" color="black") 
-                span Preffered Contact:
+                span  Preffered Contact:
                 span.pull-right Father
               
               q-item-tile.desc(label)
                 q-icon(name="home" color="black") 
-                span Address:
+                span  Address:
                 span.pull-right Antipolo
     .col-sm-9.col-xs-12
       q-tabs.custom-tab(color='secondary', glossy='')
@@ -48,7 +48,7 @@
           q-list.custom-list(multiline='', highlight='', separator='')
             q-list-header.custom-header.info.glossy
               q-icon(name='fas fa-female', size='1.5rem')
-                | Mother
+              |&nbsp; Mother
             q-item
               q-item-main
                 q-item-tile.desc(label='')
@@ -61,7 +61,7 @@
           q-list.custom-list(multiline='', highlight='', separator='')
             q-list-header.custom-header.info.glossy
               q-icon(name='fas fa-male', size='1.5rem')
-                | Father
+              |&nbsp; Father
             q-item
               q-item-main
                 q-item-tile.desc(label='')
@@ -74,7 +74,7 @@
           q-list.custom-list(multiline='', highlight='', separator='')
             q-list-header.custom-header.info.glossy
               q-icon(name='fas fa-male', size='1.5rem')
-                | Guardian
+              |&nbsp; Guardian
             q-item
               q-item-main
                 q-item-tile.desc(label='')
@@ -94,33 +94,37 @@
 </template>
 
 <script>
-  import { mapGetters } from "vuex";
-  export default {
-    name: "StudentProfile",
-    computed: {
-      ...mapGetters(["currentStudent"])
-    }
-  };
+import { mapGetters } from "vuex";
+export default {
+  name: "StudentProfile",
+  computed: {
+    ...mapGetters(["currentStudent"])
+  }
+};
 </script>
 <style lang="stylus" scoped>
-  .text-center
-    margin: 0 auto
-    text-align: center
+.text-center {
+  margin: 0 auto;
+  text-align: center;
+}
 
-  .spacer
-    margin-top: 15px
+.spacer {
+  margin-top: 15px;
+}
 
-  .desc, .desc:hover
-    padding: 10px
-    border-bottom: 1px solid #e0e0e0
-    color: #000000
-    font-size: 14px !important
+.desc, .desc:hover {
+  padding: 10px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #000000;
+  font-size: 14px !important;
+}
 
-  .avatar
-    margin: 0 auto
-    width: 100px
-    height: 100px
-    border: 2px solid #63bbb2
-    border-radius: 50%
+.avatar {
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #63bbb2;
+  border-radius: 50%;
+}
 </style>
 
