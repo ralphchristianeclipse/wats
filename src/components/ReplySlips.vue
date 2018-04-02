@@ -2,9 +2,9 @@
   .row.gutter-md
       .col-xs-6
         q-card
-          q-toolbar(glossy color="default" text-color="faded")
-            q-icon(name="attachment" color="grey-6")  
-            q-toolbar-title Reply Slips
+          q-toolbar(glossy color="secondary" text-color="faded")
+            q-icon(name="attachment")  
+            q-toolbar-title.text-white Reply Slips
           q-list(v-if="replySlips && replySlips.length" multiline highlight separator)
             q-item(v-for="(item,index) of replySlips" :key="index")
               q-item-main
